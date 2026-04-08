@@ -1,1 +1,70 @@
-dataset/
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# =========================
+# Python / Notebook
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# =========================
+# Local environment
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Runtime: local Java / Hadoop / HDFS
+# =========================
+runtime/java/
+runtime/hadoop/
+runtime/hdfs-store/
+
+# Optional: downloaded archives
+runtime/downloads/*.tar.gz
+runtime/downloads/*.zip
+runtime/downloads/*.gz
+
+# =========================
+# Raw data and large files
+# =========================
+data/raw/*
+!data/raw/.gitkeep
+
+# If you want to keep folder structure only
+data/raw/**/.gitkeep
+
+# =========================
+# Generated logs / temp files
+# =========================
+*.log
+*.out
+*.pid
+tmp/
+temp/
+
+# Ignore generated command outputs if you do not want them in repo
+# artifacts/terminal_logs/*.txt
+
+# =========================
+# Screenshots / evidence
+# =========================
+# Keep screenshots if needed for report
+# artifacts/screenshots/
+
+# =========================
+# Hadoop / HDFS misc
+# =========================
+metastore_db/
+derby.log
