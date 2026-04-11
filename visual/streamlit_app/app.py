@@ -16,7 +16,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
-from visual.streamlit_app.data import (
+from data import (
     get_genre_stats,
     get_decade_stats,
     get_top_movies,
