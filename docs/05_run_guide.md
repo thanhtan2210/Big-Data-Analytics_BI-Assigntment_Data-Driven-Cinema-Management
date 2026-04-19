@@ -2,11 +2,11 @@
 
 ## 5.1 Mục đích
 
-Tài liệu này mô tả chính xác các bước chạy môi trường Java, Hadoop và HDFS cục bộ cho Mục 1.
+Tài liệu này mô tả các bước chạy đúng cho Mục 1 của project.
 
-**Tất cả lệnh đều chạy trong WSL Ubuntu.**
+Tất cả lệnh đều được thực hiện trong **WSL Ubuntu**.
 
-## 5.2 Mở dự án trong WSL
+## 5.2 Mở project trong WSL
 
 ```bash
 cd /mnt/d/Daihoc/Nam3/AnalysisBigdata/BTL/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management
@@ -18,7 +18,9 @@ cd /mnt/d/Daihoc/Nam3/AnalysisBigdata/BTL/Big-Data-Analytics_BI-Assigntment_Data
 source scripts/activate.sh
 ```
 
-## 5.4 Kiểm tra Java và Hadoop
+Lưu ý: Trước khi chạy bất kỳ script nào trong thư mục `scripts/`, cần thực hiện `source scripts/activate.sh` trong terminal WSL hiện tại.
+
+## 5.4 Kiểm tra runtime
 
 ```bash
 java -version
@@ -26,93 +28,72 @@ hadoop version
 hdfs version
 ```
 
-## 5.5 Giải nén Java nếu chưa có
+## 5.5 Khởi động HDFS
 
 ```bash
-mkdir -p runtime/java
-
-tar -xzf runtime/downloads/OpenJDK11U-jdk_x64_linux_hotspot_*.tar.gz -C runtime/java --strip-components=1
+bash scripts/start_hdfs.sh
 ```
 
-## 5.6 Giải nén Hadoop nếu chưa có
+Script này sẽ:
+- kích hoạt env
+- bật `NameNode`
+- bật `DataNode`
+- kiểm tra safe mode
+- in `jps`
+
+## 5.6 Nạp dữ liệu TMDB raw lên HDFS
+
+Trước tiên, cần đặt 3 file trong:
+
+```text
+data/raw/tmdb/extracted/
+```
+
+Bao gồm:
+- `movies_metadata.csv`
+- `credits.csv`
+- `keywords.csv`
+
+Sau đó chạy:
 
 ```bash
-mkdir -p runtime/hadoop
-
-tar -xzf runtime/downloads/hadoop-3.4.3.tar.gz -C runtime/hadoop --strip-components=1
+bash scripts/upload_tmdb.sh
 ```
 
-## 5.7 Format HDFS (chỉ cho lần đầu)
+Script này sẽ:
+- kiểm tra 3 file local
+- tạo thư mục `/project/cinema/raw/tmdb`
+- upload 3 file lên HDFS
+- lưu log vào `artifacts/terminal_logs/`
+
+## 5.7 Kiểm tra toàn bộ raw data trên HDFS
 
 ```bash
-hdfs namenode -format
+bash scripts/check_hdfs_raw.sh
 ```
 
-Lưu ý:
+Script này sẽ kiểm tra:
+- raw MovieLens tại `/project/cinema/raw/movielens`
+- raw TMDB tại `/project/cinema/raw/tmdb`
 
-- chỉ chạy một lần cho lần khởi tạo đầu tiên
-- không chạy lại khi NameNode đang hoạt động
-
-## 5.8 Khởi động HDFS local
+## 5.8 Dừng HDFS
 
 ```bash
-hdfs --daemon start namenode
-hdfs --daemon start datanode
-jps
+bash scripts/stop_hdfs.sh
 ```
 
-Kết quả kỳ vọng:
+## 5.9 Log sinh ra
 
-- `NameNode`
-- `DataNode`
+Sau khi chạy xong, project sẽ có các log như:
+- `artifacts/terminal_logs/hdfs_movielens_ls.txt`
+- `artifacts/terminal_logs/hdfs_movielens_du.txt`
+- `artifacts/terminal_logs/hdfs_tmdb_ls.txt`
+- `artifacts/terminal_logs/hdfs_tmdb_du.txt`
+- `artifacts/terminal_logs/jps_after_start.txt`
 
-## 5.9 Tạo thư mục HDFS cho dự án
+## 5.10 Kết luận
 
-```bash
-hdfs dfs -mkdir -p /project/cinema/raw/movielens
-hdfs dfs -mkdir -p /project/cinema/raw/tmdb
-```
-
-## 5.10 Tải dữ liệu MovieLens raw lên HDFS
-
-Nếu dữ liệu đã nằm trong `data/raw/`:
-
-```bash
-hdfs dfs -put data/raw/* /project/cinema/raw/movielens/
-```
-
-## 5.11 Kiểm tra dữ liệu đã nạp lên
-
-```bash
-hdfs dfs -ls /project/cinema/raw/movielens
-hdfs dfs -du -h /project/cinema/raw/movielens
-```
-
-## 5.12 Lưu log minh chứng
-
-```bash
-mkdir -p artifacts/terminal_logs
-hdfs dfs -ls /project/cinema/raw/movielens > artifacts/terminal_logs/hdfs_movielens_ls.txt 2>&1
-hdfs dfs -du -h /project/cinema/raw/movielens > artifacts/terminal_logs/hdfs_movielens_du.txt 2>&1
-jps > artifacts/terminal_logs/jps_after_start.txt
-```
-
-## 5.13 Dừng HDFS sau khi sử dụng
-
-```bash
-hdfs --daemon stop datanode
-hdfs --daemon stop namenode
-jps
-```
-
-## 5.14 Tóm tắt workflow chuẩn
-
-- mở WSL Ubuntu
-- vào thư mục dự án
-- chạy `source scripts/activate.sh`
-- kiểm tra Java và Hadoop
-- format HDFS nếu là lần đầu
-- khởi động HDFS
-- nạp dữ liệu raw lên HDFS
-- kiểm tra dữ liệu và lưu log
-- dừng HDFS khi hoàn tất
+Nếu chạy thành công toàn bộ các bước trên, Mục 1 sẽ hoàn thành đầy đủ phần:
+- data collection
+- schema understanding
+- raw data ingestion into HDFS

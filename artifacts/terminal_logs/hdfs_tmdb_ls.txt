@@ -1,0 +1,4 @@
+Found 3 items
+-rw-r--r--   3 nampham2312186 supergroup  189917659 2026-04-19 09:26 /project/cinema/raw/tmdb/credits.csv
+-rw-r--r--   3 nampham2312186 supergroup    6231943 2026-04-19 09:26 /project/cinema/raw/tmdb/keywords.csv
+-rw-r--r--   3 nampham2312186 supergroup   34445126 2026-04-19 09:26 /project/cinema/raw/tmdb/movies_metadata.csv

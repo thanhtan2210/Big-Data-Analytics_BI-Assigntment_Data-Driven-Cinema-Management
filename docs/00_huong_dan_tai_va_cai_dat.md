@@ -1,105 +1,153 @@
-# 0. Hướng Dẫn Tải File, Giải Nén và Cài Đặt Cho Mục 1
+# 0. Hướng Dẫn Tải Dữ Liệu Và Cài Đặt Môi Trường
 
-Tài liệu này tổng hợp **toàn bộ link tải chính thức** và hướng dẫn thao tác chi tiết để chuẩn bị môi trường cho Mục 1.
+## 0.1 Mục đích
 
-## 0.1 Các thành phần cần tải
+Tài liệu này mô tả cách tải bộ dữ liệu, bố trí tệp trong project, cài đặt môi trường local và chuẩn bị Hadoop/HDFS cho Mục 1 của dự án.
 
-### 1) Bộ dữ liệu MovieLens 25M
+Toàn bộ quy trình được thực hiện trong **WSL Ubuntu**, trong khi thư mục project được lưu trên ổ `D:` của Windows.
 
-- Trang chính thức: https://grouplens.org/datasets/movielens/25m/
-- File nén: https://files.grouplens.org/datasets/movielens/ml-25m.zip
+## 0.2 Đường dẫn project
 
-### 2) Java cho WSL Ubuntu
-
-- Trang chính thức Temurin JDK 11: https://adoptium.net/en-GB/temurin/releases?version=11
-- Chọn đúng gói:
-  - Version: **JDK 11**
-  - Operating System: **Linux**
-  - Architecture: **x64**
-  - Package Type: **JDK**
-  - Format: **tar.gz**
-
-### 3) Hadoop
-
-- Trang release: https://hadoop.apache.org/release/3.4.3.html
-- File tar.gz: https://archive.apache.org/dist/hadoop/common/hadoop-3.4.3/hadoop-3.4.3.tar.gz
-
-## 0.2 Vị trí nên lưu file trong project
-
-### MovieLens
-
-- File zip: `data/raw/ml-25m.zip`
-- File giải nén: `data/raw/`
-
-### Java
-
-- File tải về: `runtime/downloads/OpenJDK11U-jdk_x64_linux_hotspot_....tar.gz`
-- Thư mục giải nén: `runtime/java/`
-
-### Hadoop
-
-- File tải về: `runtime/downloads/hadoop-3.4.3.tar.gz`
-- Thư mục giải nén: `runtime/hadoop/`
-
-## 0.3 Cách giải nén MovieLens
-
-Nếu đã có file `ml-25m.zip` trong project:
+Đường dẫn project trong WSL:
 
 ```bash
-unzip -q data/raw/ml-25m.zip -d data/raw/
+/mnt/d/Daihoc/Nam3/AnalysisBigdata/BTL/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management
 ```
 
-Nếu sau khi giải nén xuất hiện thư mục con `ml-25m/`, di chuyển dữ liệu ra ngoài:
+## 0.3 Các nguồn dữ liệu dùng trong Mục 1
 
-```bash
-mv data/raw/ml-25m/* data/raw/
-rmdir data/raw/ml-25m
+### MovieLens 25M
+Nguồn tải:
+- Trang chính: https://grouplens.org/datasets/movielens/25m/
+- File zip trực tiếp: https://files.grouplens.org/datasets/movielens/ml-25m.zip
+
+### TMDB-side dataset từ Kaggle
+Nguồn tải:
+- The Movies Dataset: https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset
+
+Trong Mục 1, các tệp TMDB raw được dùng là:
+- `movies_metadata.csv`
+- `credits.csv`
+- `keywords.csv`
+
+## 0.4 Cấu trúc thư mục dữ liệu local
+
+### MovieLens raw
+Các tệp MovieLens raw được đặt trực tiếp trong:
+
+```text
+data/raw/
 ```
 
-## 0.4 Cách giải nén Java
+Bao gồm:
+- `ratings.csv`
+- `movies.csv`
+- `tags.csv`
+- `links.csv`
+- `genome-scores.csv`
+- `genome-tags.csv`
+- `README.txt`
 
-```bash
-mkdir -p runtime/java
+### TMDB raw
+Các tệp TMDB raw được đặt trong:
 
-tar -xzf runtime/downloads/OpenJDK11U-jdk_x64_linux_hotspot_*.tar.gz -C runtime/java --strip-components=1
+```text
+data/raw/tmdb/extracted/
 ```
 
-Kiểm tra:
+Bao gồm:
+- `movies_metadata.csv`
+- `credits.csv`
+- `keywords.csv`
 
-```bash
-runtime/java/bin/java -version
+Nếu có file nén gốc, có thể lưu trong:
+
+```text
+data/raw/tmdb/zip/
 ```
 
-## 0.5 Cách giải nén Hadoop
+## 0.5 Java local theo project
 
-```bash
-mkdir -p runtime/hadoop
+Java được đặt trong:
 
-tar -xzf runtime/downloads/hadoop-3.4.3.tar.gz -C runtime/hadoop --strip-components=1
+```text
+runtime/java/
 ```
 
-Kiểm tra:
+Project sử dụng Java local thay vì cài đặt toàn hệ thống.
 
-```bash
-ls runtime/hadoop
-hadoop version
+## 0.6 Hadoop local theo project
+
+Hadoop được đặt trong:
+
+```text
+runtime/hadoop/
 ```
 
-## 0.6 Kích hoạt môi trường local
+Project sử dụng Hadoop local thay vì cài đặt toàn hệ thống.
+
+## 0.7 HDFS local theo project
+
+Vùng lưu trữ HDFS local được đặt trong:
+
+```text
+runtime/hdfs-store/
+```
+
+Các thư mục con:
+- `runtime/hdfs-store/tmp`
+- `runtime/hdfs-store/namenode`
+- `runtime/hdfs-store/datanode`
+
+## 0.8 Kích hoạt môi trường local
+
+Mỗi lần mở terminal mới trong WSL, cần chạy:
 
 ```bash
+cd /mnt/d/Daihoc/Nam3/AnalysisBigdata/BTL/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management
 source scripts/activate.sh
 ```
 
-## 0.7 Trình tự khuyến nghị từ đầu đến cuối
+## 0.9 Kiểm tra runtime
 
-1. tải MovieLens zip
-2. tải JDK 11 Linux x64 tar.gz
-3. tải Hadoop 3.4.3 tar.gz
-4. giải nén MovieLens vào `data/raw/`
-5. giải nén Java vào `runtime/java/`
-6. giải nén Hadoop vào `runtime/hadoop/`
-7. chạy `source scripts/activate.sh`
-8. kiểm tra `java -version`, `hadoop version`, `hdfs version`
-9. format HDFS nếu là lần đầu
-10. khởi động HDFS và nạp dữ liệu raw vào HDFS
+```bash
+java -version
+hadoop version
+hdfs version
+```
+
+## 0.10 Các script hỗ trợ
+
+Trong thư mục `scripts/` hiện có:
+
+- `activate.sh`
+- `start_hdfs.sh`
+- `stop_hdfs.sh`
+- `upload_tmdb.sh`
+- `check_hdfs_raw.sh`
+
+## 0.11 Quy trình tổng quát của Mục 1
+
+1. tải MovieLens 25M
+2. đặt file raw vào `data/raw/`
+3. tải TMDB-side dataset
+4. đặt `movies_metadata.csv`, `credits.csv`, `keywords.csv` vào `data/raw/tmdb/extracted/`
+5. kích hoạt môi trường local
+6. khởi động HDFS
+7. nạp MovieLens raw lên HDFS
+8. nạp TMDB raw lên HDFS
+9. kiểm tra lại dữ liệu trên HDFS
+10. lưu log và ảnh minh chứng
+
+## 0.12 Kết quả mong đợi
+
+Sau khi hoàn thành Mục 1, project phải có:
+
+- dữ liệu MovieLens raw local
+- dữ liệu TMDB raw local
+- Java local
+- Hadoop local
+- HDFS local
+- raw MovieLens trên HDFS
+- raw TMDB trên HDFS
+- docs, log và ảnh minh chứng đầy đủ

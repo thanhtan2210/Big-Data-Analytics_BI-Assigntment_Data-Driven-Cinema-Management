@@ -2,158 +2,99 @@
 
 ## 4.1 Mục tiêu
 
-Mục tiêu của phần thiết lập này là chuẩn bị môi trường lưu trữ Big Data cục bộ theo dự án cho Mục 1. Toàn bộ Java, Hadoop và vùng lưu trữ HDFS được giữ **bên trong thư mục dự án**, không phụ thuộc vào cài đặt toàn hệ thống.
+Mục tiêu của phần này là thiết lập một môi trường lưu trữ Big Data cục bộ theo project để phục vụ Mục 1.
 
-Thiết lập này được chạy **bên trong WSL Ubuntu trên Windows**.
+Thay vì dùng Java hoặc Hadoop cài đặt toàn hệ thống, project sử dụng runtime local nằm trong chính thư mục dự án.
 
 ## 4.2 Môi trường thực thi
 
+Project được chạy trong:
+
 - Hệ điều hành máy chủ: Windows
 - Môi trường Linux: WSL Ubuntu
-- Đường dẫn truy cập dự án trong WSL:
+- Đường dẫn project trong WSL:
 
 ```bash
 /mnt/d/Daihoc/Nam3/AnalysisBigdata/BTL/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management
 ```
 
-Toàn bộ lệnh Java, Hadoop và HDFS được chạy trong terminal WSL.
+Toàn bộ lệnh Java, Hadoop và HDFS đều được thực hiện từ terminal WSL.
 
-## 4.3 Cấu trúc runtime local theo dự án
+## 4.3 Cấu trúc runtime local
 
-- Java runtime: `runtime/java`
-- Hadoop runtime: `runtime/hadoop`
-- HDFS storage: `runtime/hdfs-store`
+### Java local
+```text
+runtime/java/
+```
 
-Các thư mục con của HDFS local:
+### Hadoop local
+```text
+runtime/hadoop/
+```
 
+### HDFS local
+```text
+runtime/hdfs-store/
+```
+
+Các thư mục con:
 - `runtime/hdfs-store/tmp`
 - `runtime/hdfs-store/namenode`
 - `runtime/hdfs-store/datanode`
 
-## 4.4 Link tải chính thức
+## 4.4 Kích hoạt môi trường
 
-### Bộ dữ liệu MovieLens 25M
-
-- Trang dataset: https://grouplens.org/datasets/movielens/25m/
-- File zip trực tiếp: https://files.grouplens.org/datasets/movielens/ml-25m.zip
-
-### Java cho WSL (khuyến nghị)
-
-- Trang Temurin JDK 11: https://adoptium.net/en-GB/temurin/releases?version=11
-- Khuyến nghị chọn: **JDK 11, Linux, x64, HotSpot, tar.gz**
-
-### Hadoop
-
-- Trang release Hadoop 3.4.3: https://hadoop.apache.org/release/3.4.3.html
-- File tar.gz: https://archive.apache.org/dist/hadoop/common/hadoop-3.4.3/hadoop-3.4.3.tar.gz
-
-## 4.5 Tải file về đúng vị trí trong project
-
-### Tải MovieLens
-
-Lưu file zip vào:
-
-```text
-runtime/downloads/ hoặc data/raw/
-```
-
-Khuyến nghị với project hiện tại:
-
-- file nén: `data/raw/ml-25m.zip`
-- file giải nén: `data/raw/`
-
-### Tải Java tar.gz
-
-Lưu vào:
-
-```text
-runtime/downloads/
-```
-
-Ví dụ:
-
-- `runtime/downloads/OpenJDK11U-jdk_x64_linux_hotspot_....tar.gz`
-
-### Tải Hadoop tar.gz
-
-Lưu vào:
-
-```text
-runtime/downloads/
-```
-
-Ví dụ:
-
-- `runtime/downloads/hadoop-3.4.3.tar.gz`
-
-## 4.6 Cách giải nén Java trong WSL
-
-**Không giải nén bằng Windows Explorer.**
-
-Giải nén bằng terminal WSL:
+Mỗi phiên terminal mới cần chạy:
 
 ```bash
-mkdir -p runtime/java
-mkdir -p runtime/downloads
-
-tar -xzf runtime/downloads/OpenJDK11U-jdk_x64_linux_hotspot_*.tar.gz -C runtime/java --strip-components=1
-```
-
-Kiểm tra:
-
-```bash
-runtime/java/bin/java -version
-```
-
-## 4.7 Cách giải nén Hadoop trong WSL
-
-```bash
-mkdir -p runtime/hadoop
-
-tar -xzf runtime/downloads/hadoop-3.4.3.tar.gz -C runtime/hadoop --strip-components=1
-```
-
-Kiểm tra:
-
-```bash
-ls runtime/hadoop
-ls runtime/hadoop/bin | head
-```
-
-## 4.8 Kích hoạt môi trường local
-
-Script kích hoạt môi trường:
-
-```bash
+cd /mnt/d/Daihoc/Nam3/AnalysisBigdata/BTL/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management
 source scripts/activate.sh
 ```
 
-Script này nạp các biến chính từ `.env`, gồm:
-
+Sau khi kích hoạt, các biến môi trường chính sẽ được nạp:
 - `PROJECT_ROOT`
 - `JAVA_HOME`
 - `HADOOP_HOME`
 - `HADOOP_CONF_DIR`
 
-## 4.9 Các tệp cấu hình Hadoop
+## 4.5 Cấu hình Hadoop
 
-Nằm trong:
+Cấu hình Hadoop được lưu trong:
 
 ```text
 config/hadoop/
 ```
 
 Các tệp chính:
-
 - `core-site.xml`
 - `hdfs-site.xml`
 - `hadoop-env.sh`
 
-## 4.10 Kết quả mong đợi
+## 4.6 Script hỗ trợ HDFS
 
-Sau khi thiết lập xong, dự án cần có:
+Trong project hiện có các script:
 
-- Java local trong `runtime/java`
-- Hadoop local trong `runtime/hadoop`
-- HDFS local trong `runtime/hdfs-store`
-- dữ liệu MovieLens raw đã được nạp thành công vào HDFS
+- `scripts/start_hdfs.sh`
+- `scripts/stop_hdfs.sh`
+- `scripts/check_hdfs_raw.sh`
+- `scripts/upload_tmdb.sh`
+
+## 4.7 Quy trình khởi tạo HDFS
+
+1. kích hoạt môi trường local
+2. khởi động `NameNode` và `DataNode`
+3. thoát safe mode nếu cần
+4. tạo thư mục HDFS cho raw data
+5. nạp MovieLens raw và TMDB raw lên HDFS
+6. kiểm tra dữ liệu trên HDFS
+
+## 4.8 Kết quả hiện tại
+
+Hiện tại HDFS đã có hai thư mục dữ liệu thô chính:
+
+```text
+/project/cinema/raw/movielens
+/project/cinema/raw/tmdb
+```
+
+Điều này chứng minh phần cấu hình lưu trữ của Mục 1 đã hoàn tất.

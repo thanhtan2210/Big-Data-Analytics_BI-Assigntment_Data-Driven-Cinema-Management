@@ -2,61 +2,111 @@
 
 ## 2.1 Tổng quan
 
-Bộ dữ liệu MovieLens 25M có cấu trúc quan hệ, được tách thành nhiều tệp CSV. Trong đó:
+Bộ dữ liệu của dự án hiện gồm hai nhóm:
 
-- `userId` là khóa liên kết ở cấp người dùng
-- `movieId` là khóa liên kết ở cấp phim
+- nhóm dữ liệu MovieLens raw
+- nhóm dữ liệu TMDB raw
 
-## 2.2 Các tệp cốt lõi và cột dữ liệu
+Trong đó, `userId`, `movieId`, `tmdbId` và `id` là các khóa quan trọng cho việc tích hợp ở các bước sau.
+
+## 2.2 Lược đồ MovieLens
 
 ### ratings.csv
+Lưu điểm đánh giá phim của người dùng.
 
-- `userId`: mã người dùng đã ẩn danh
-- `movieId`: mã phim trong MovieLens
-- `rating`: điểm đánh giá từ 0.5 đến 5.0
-- `timestamp`: thời điểm đánh giá theo Unix timestamp
+Các cột chính:
+- `userId`
+- `movieId`
+- `rating`
+- `timestamp`
 
 ### tags.csv
+Lưu các thẻ do người dùng gán.
 
-- `userId`: mã người dùng đã ẩn danh
-- `movieId`: mã phim trong MovieLens
-- `tag`: thẻ do người dùng gán
-- `timestamp`: thời điểm gắn thẻ
+Các cột chính:
+- `userId`
+- `movieId`
+- `tag`
+- `timestamp`
 
 ### movies.csv
+Lưu thông tin cơ bản của phim.
 
-- `movieId`: mã phim trong MovieLens
-- `title`: tên phim, thường kèm năm phát hành
-- `genres`: danh sách thể loại phân tách bởi ký tự `|`
+Các cột chính:
+- `movieId`
+- `title`
+- `genres`
 
 ### links.csv
+Lưu khóa đối sánh ra hệ thống ngoài.
 
-- `movieId`: mã phim trong MovieLens
-- `imdbId`: mã phim trên IMDb
-- `tmdbId`: mã phim trên TMDB
+Các cột chính:
+- `movieId`
+- `imdbId`
+- `tmdbId`
 
-## 2.3 Quan hệ giữa các tệp
+### genome-scores.csv
+Lưu mức độ liên quan giữa phim và tag.
 
-### Liên kết theo người dùng
+Các cột chính:
+- `movieId`
+- `tagId`
+- `relevance`
 
-- `userId` nhất quán giữa `ratings.csv` và `tags.csv`
+### genome-tags.csv
+Ánh xạ `tagId` sang tên tag.
 
-### Liên kết theo phim
+Các cột chính:
+- `tagId`
+- `tag`
 
-- `movieId` nhất quán giữa:
+## 2.3 Lược đồ TMDB-side dataset
+
+### movies_metadata.csv
+Lưu metadata phim mở rộng.
+
+Một số cột quan trọng:
+- `id`
+- `budget`
+- `revenue`
+- `genres`
+- `release_date`
+- `popularity`
+- `runtime`
+- `title`
+
+### credits.csv
+Lưu thông tin cast và crew.
+
+Một số cột chính:
+- `id`
+- `cast`
+- `crew`
+
+### keywords.csv
+Lưu từ khóa liên quan đến phim.
+
+Một số cột chính:
+- `id`
+- `keywords`
+
+## 2.4 Quan hệ giữa các tệp
+
+### Trong MovieLens
+- `userId` liên kết giữa `ratings.csv` và `tags.csv`
+- `movieId` liên kết giữa:
   - `ratings.csv`
   - `tags.csv`
   - `movies.csv`
   - `links.csv`
 
-## 2.4 Các tệp hỗ trợ
+### Giữa MovieLens và TMDB-side dataset
+- `links.csv` chứa `tmdbId`
+- `movies_metadata.csv`, `credits.csv`, `keywords.csv` chứa `id`
+- ở các bước sau, có thể nối:
+  - `links.csv.tmdbId`
+  - với `movies_metadata.csv.id`
 
-### genome-scores.csv
+## 2.5 Kết luận
 
-Lưu điểm mức độ liên quan giữa phim và từng tag.
-
-### genome-tags.csv
-
-Lưu ánh xạ giữa `tagId` và nội dung tag.
-
-Hai tệp này hữu ích cho các phân tích nâng cao nhưng không phải trọng tâm chính của Mục 1.
+Mục 1 chỉ tài liệu hóa lược đồ và chuẩn bị lớp dữ liệu thô. Việc chuẩn hóa kiểu dữ liệu và merge sâu sẽ được thực hiện ở Mục 2.

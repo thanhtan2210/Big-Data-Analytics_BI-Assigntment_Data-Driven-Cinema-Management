@@ -1,45 +1,74 @@
 # 1. Tổng Quan Bộ Dữ Liệu
 
-## 1.1 Mục đích
+## 1.1 Mục đích của bộ dữ liệu trong dự án
 
-Trong Mục 1, bộ dữ liệu MovieLens 25M được dùng làm **nguồn dữ liệu thô chính** cho toàn bộ dự án Data-Driven Cinema Management. Phần việc của Mục 1 tập trung vào:
+Dự án này sử dụng hai nguồn dữ liệu thô chính trong Mục 1:
 
-- thu thập dữ liệu gốc
-- hiểu cấu trúc dữ liệu
-- xác định khóa liên kết với nguồn ngoài
-- chuẩn bị môi trường lưu trữ HDFS cho lớp dữ liệu thô
+- **MovieLens 25M**: nguồn dữ liệu hành vi người dùng, bao gồm đánh giá và gắn thẻ phim
+- **TMDB-side dataset từ Kaggle**: nguồn metadata phim phục vụ các thuộc tính như ngân sách, doanh thu và thông tin phim mở rộng
 
-## 1.2 Tóm tắt bộ dữ liệu
+Mục tiêu của Mục 1 là thu thập, hiểu dữ liệu, tài liệu hóa cấu trúc và nạp dữ liệu thô vào HDFS.
 
-MovieLens 25M là bộ dữ liệu gợi ý phim công khai của GroupLens, bao gồm:
+## 1.2 Tóm tắt bộ dữ liệu MovieLens 25M
 
-- 25.000.095 lượt đánh giá
-- 1.093.360 lượt gắn thẻ
-- 62.423 bộ phim
-- 162.541 người dùng
+MovieLens 25M là bộ dữ liệu gợi ý phim công khai, bao gồm:
 
-Các tệp dữ liệu được phát hành dưới dạng CSV có header, mã hóa UTF-8.
+- 25,000,095 lượt đánh giá
+- 1,093,360 lượt gắn thẻ
+- 62,423 bộ phim
+- 162,541 người dùng
 
-## 1.3 Các tệp chính dùng trong Mục 1
+Các tệp raw local của MovieLens hiện nằm trong:
 
-Các tệp quan trọng nhất gồm:
+```text
+data/raw/
+```
 
+Bao gồm:
 - `ratings.csv`
 - `movies.csv`
 - `tags.csv`
 - `links.csv`
-
-Ngoài ra còn có:
-
 - `genome-scores.csv`
 - `genome-tags.csv`
 - `README.txt`
 
-Trong phạm vi Mục 1, nhóm chủ yếu tập trung vào 4 tệp cốt lõi đầu tiên để hiểu lược đồ dữ liệu và chuẩn bị cho bước tích hợp metadata ở các mục sau.
+## 1.3 Tóm tắt dữ liệu TMDB-side
 
-## 1.4 Ý nghĩa đối với dự án
+Dự án sử dụng thêm một bộ dữ liệu metadata phim từ Kaggle để phục vụ các thuộc tính như doanh thu và ngân sách.
 
-- `ratings.csv` là đầu vào chính cho hệ gợi ý
-- `movies.csv` cung cấp tên phim và thể loại
-- `tags.csv` bổ sung metadata do người dùng tạo ra
-- `links.csv` cung cấp `imdbId` và `tmdbId`, là cầu nối đến dữ liệu phim từ bên ngoài
+Các tệp raw local hiện nằm trong:
+
+```text
+data/raw/tmdb/extracted/
+```
+
+Bao gồm:
+- `movies_metadata.csv`
+- `credits.csv`
+- `keywords.csv`
+
+Trong đó:
+- `movies_metadata.csv` là tệp quan trọng nhất cho các trường như `budget`, `revenue`, `id`, `genres`, `release_date`
+- `credits.csv` chứa thông tin cast và crew
+- `keywords.csv` chứa từ khóa mô tả nội dung phim
+
+## 1.4 Vai trò của từng nguồn dữ liệu
+
+### MovieLens
+Dùng cho:
+- phân tích hành vi đánh giá phim
+- xây dựng recommendation model
+- theo dõi xu hướng rating
+
+### TMDB-side dataset
+Dùng cho:
+- bổ sung metadata phim
+- phân tích doanh thu và ngân sách
+- làm giàu dữ liệu ở các mục sau
+
+## 1.5 Kết quả sau Mục 1
+
+Sau khi hoàn thành Mục 1:
+- dữ liệu MovieLens raw đã được nạp lên HDFS tại `/project/cinema/raw/movielens`
+- dữ liệu TMDB raw đã được nạp lên HDFS tại `/project/cinema/raw/tmdb`
