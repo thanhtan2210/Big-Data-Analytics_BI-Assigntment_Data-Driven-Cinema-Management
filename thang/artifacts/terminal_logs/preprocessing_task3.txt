@@ -1,0 +1,391 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/04/19 14:25:58 WARN Utils: Your hostname, Rots-Macbook.local, resolves to a loopback address: 127.0.0.1; using 192.168.1.93 instead (on interface en0)
+26/04/19 14:25:58 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/venv/lib/python3.13/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /Users/hosythang/.ivy2.5.2/cache
+The jars for the packages stored in: /Users/hosythang/.ivy2.5.2/jars
+org.mongodb.spark#mongo-spark-connector_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-fff2f862-9ca5-4ec2-a70c-4c6a9d4ae241;1.0
+	confs: [default]
+	found org.mongodb.spark#mongo-spark-connector_2.13;11.0.1 in central
+	found org.mongodb#mongodb-driver-sync;5.1.4 in central
+	[5.1.4] org.mongodb#mongodb-driver-sync;[5.1.1,5.1.99)
+	found org.mongodb#bson;5.1.4 in central
+	found org.mongodb#mongodb-driver-core;5.1.4 in central
+	found org.mongodb#bson-record-codec;5.1.4 in central
+downloading https://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.13/11.0.1/mongo-spark-connector_2.13-11.0.1.jar ...
+	[SUCCESSFUL ] org.mongodb.spark#mongo-spark-connector_2.13;11.0.1!mongo-spark-connector_2.13.jar (510ms)
+downloading https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-sync/5.1.4/mongodb-driver-sync-5.1.4.jar ...
+	[SUCCESSFUL ] org.mongodb#mongodb-driver-sync;5.1.4!mongodb-driver-sync.jar (111ms)
+downloading https://repo1.maven.org/maven2/org/mongodb/bson/5.1.4/bson-5.1.4.jar ...
+	[SUCCESSFUL ] org.mongodb#bson;5.1.4!bson.jar (146ms)
+downloading https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/5.1.4/mongodb-driver-core-5.1.4.jar ...
+	[SUCCESSFUL ] org.mongodb#mongodb-driver-core;5.1.4!mongodb-driver-core.jar (176ms)
+downloading https://repo1.maven.org/maven2/org/mongodb/bson-record-codec/5.1.4/bson-record-codec-5.1.4.jar ...
+	[SUCCESSFUL ] org.mongodb#bson-record-codec;5.1.4!bson-record-codec.jar (95ms)
+:: resolution report :: resolve 4980ms :: artifacts dl 1043ms
+	:: modules in use:
+	org.mongodb#bson;5.1.4 from central in [default]
+	org.mongodb#bson-record-codec;5.1.4 from central in [default]
+	org.mongodb#mongodb-driver-core;5.1.4 from central in [default]
+	org.mongodb#mongodb-driver-sync;5.1.4 from central in [default]
+	org.mongodb.spark#mongo-spark-connector_2.13;11.0.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   5   |   5   |   5   |   0   ||   5   |   5   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-fff2f862-9ca5-4ec2-a70c-4c6a9d4ae241
+	confs: [default]
+	5 artifacts copied, 0 already retrieved (2536kB/11ms)
+26/04/19 14:26:05 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/04/19 14:26:13 INFO SparkContext: Running Spark version 4.1.1
+26/04/19 14:26:13 INFO SparkContext: OS info Mac OS X, 26.4.1, aarch64
+26/04/19 14:26:13 INFO SparkContext: Java version 17.0.18+0
+26/04/19 14:26:13 INFO ResourceUtils: ==============================================================
+26/04/19 14:26:13 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/04/19 14:26:13 INFO ResourceUtils: ==============================================================
+26/04/19 14:26:13 INFO SparkContext: Submitted application: DataPreprocessing_CinemaDW
+26/04/19 14:26:13 INFO SecurityManager: Changing view acls to: hosythang
+26/04/19 14:26:13 INFO SecurityManager: Changing modify acls to: hosythang
+26/04/19 14:26:13 INFO SecurityManager: Changing view acls groups to: hosythang
+26/04/19 14:26:13 INFO SecurityManager: Changing modify acls groups to: hosythang
+26/04/19 14:26:13 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: hosythang groups with view permissions: EMPTY; users with modify permissions: hosythang; groups with modify permissions: EMPTY; RPC SSL disabled
+26/04/19 14:26:13 INFO Utils: Successfully started service 'sparkDriver' on port 61488.
+26/04/19 14:26:13 INFO SparkEnv: Registering MapOutputTracker
+26/04/19 14:26:13 INFO SparkEnv: Registering BlockManagerMaster
+26/04/19 14:26:13 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/04/19 14:26:13 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/04/19 14:26:13 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/04/19 14:26:13 INFO DiskBlockManager: Created local directory at /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/blockmgr-9480348d-9988-4322-9847-c1e6fa8d1a09
+26/04/19 14:26:13 INFO SparkEnv: Registering OutputCommitCoordinator
+26/04/19 14:26:14 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/04/19 14:26:14 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/04/19 14:26:14 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar at spark://192.168.1.93:61488/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar at spark://192.168.1.93:61488/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar at spark://192.168.1.93:61488/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar at spark://192.168.1.93:61488/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar at spark://192.168.1.93:61488/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar
+26/04/19 14:26:14 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-sync-5.1.4.jar
+26/04/19 14:26:14 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-5.1.4.jar
+26/04/19 14:26:14 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-core-5.1.4.jar
+26/04/19 14:26:14 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-record-codec-5.1.4.jar
+26/04/19 14:26:14 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/04/19 14:26:14 INFO ResourceProfile: Limiting resource is cpu
+26/04/19 14:26:14 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/04/19 14:26:14 INFO SecurityManager: Changing view acls to: hosythang
+26/04/19 14:26:14 INFO SecurityManager: Changing modify acls to: hosythang
+26/04/19 14:26:14 INFO SecurityManager: Changing view acls groups to: hosythang
+26/04/19 14:26:14 INFO SecurityManager: Changing modify acls groups to: hosythang
+26/04/19 14:26:14 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: hosythang groups with view permissions: EMPTY; users with modify permissions: hosythang; groups with modify permissions: EMPTY; RPC SSL disabled
+26/04/19 14:26:14 INFO Executor: Starting executor ID driver on host 192.168.1.93
+26/04/19 14:26:14 INFO Executor: OS info Mac OS X, 26.4.1, aarch64
+26/04/19 14:26:14 INFO Executor: Java version 17.0.18+0
+26/04/19 14:26:14 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/04/19 14:26:14 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@71302656 for default.
+26/04/19 14:26:14 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-sync-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar
+26/04/19 14:26:14 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-record-codec-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-core-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Fetching spark://192.168.1.93:61488/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO TransportClientFactory: Successfully created connection to /192.168.1.93:61488 after 8 ms (0 ms spent in bootstraps)
+26/04/19 14:26:14 INFO Utils: Fetching spark://192.168.1.93:61488/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp9796144742121622623.tmp
+26/04/19 14:26:14 INFO Utils: /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp9796144742121622623.tmp has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-sync-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Adding file:/private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-sync-5.1.4.jar to class loader default
+26/04/19 14:26:14 INFO Executor: Fetching spark://192.168.1.93:61488/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Fetching spark://192.168.1.93:61488/jars/org.mongodb_bson-record-codec-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp18392228733064989081.tmp
+26/04/19 14:26:14 INFO Utils: /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp18392228733064989081.tmp has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-record-codec-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Adding file:/private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-record-codec-5.1.4.jar to class loader default
+26/04/19 14:26:14 INFO Executor: Fetching spark://192.168.1.93:61488/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Fetching spark://192.168.1.93:61488/jars/org.mongodb_mongodb-driver-core-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp2740986662119472328.tmp
+26/04/19 14:26:14 INFO Utils: /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp2740986662119472328.tmp has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-core-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Adding file:/private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_mongodb-driver-core-5.1.4.jar to class loader default
+26/04/19 14:26:14 INFO Executor: Fetching spark://192.168.1.93:61488/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Fetching spark://192.168.1.93:61488/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp10591503084411315751.tmp
+26/04/19 14:26:14 INFO Utils: /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp10591503084411315751.tmp has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar
+26/04/19 14:26:14 INFO Executor: Adding file:/private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar to class loader default
+26/04/19 14:26:14 INFO Executor: Fetching spark://192.168.1.93:61488/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776583573601
+26/04/19 14:26:14 INFO Utils: Fetching spark://192.168.1.93:61488/jars/org.mongodb_bson-5.1.4.jar to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp2819393047342074454.tmp
+26/04/19 14:26:14 INFO Utils: /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/fetchFileTemp2819393047342074454.tmp has been previously copied to /private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-5.1.4.jar
+26/04/19 14:26:14 INFO Executor: Adding file:/private/var/folders/_1/vk58zqn10_92lbvmfk921g4h0000gn/T/spark-a993df60-d9db-480c-b598-22c92cae2f7e/userFiles-ab33d6bc-aebb-41d8-ac6d-607bf4a0ceed/org.mongodb_bson-5.1.4.jar to class loader default
+26/04/19 14:26:14 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 61490.
+26/04/19 14:26:14 INFO NettyBlockTransferService: Server created on 192.168.1.93:61490
+26/04/19 14:26:14 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/04/19 14:26:14 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.93, 61490, None)
+26/04/19 14:26:14 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.93:61490 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.93, 61490, None)
+26/04/19 14:26:14 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.93, 61490, None)
+26/04/19 14:26:14 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.93, 61490, None)
+=====================================================
+        Starting Data Preprocessing Pipeline
+=====================================================
+Loading MovieLens data from hdfs://localhost:9000/project/cinema/raw/movielens ...
+Loading TMDB data from hdfs://localhost:9000/project/cinema/raw/tmdb ...
+26/04/19 14:26:20 WARN FileStreamSink: Assume no metadata directory. Error while looking for metadata directory in the path: hdfs://localhost:9000/project/cinema/raw/tmdb/tmdb_movies.csv.
+java.io.FileNotFoundException: File does not exist: hdfs://localhost:9000/project/cinema/raw/tmdb/tmdb_movies.csv
+	at org.apache.hadoop.hdfs.DistributedFileSystem$29.doCall(DistributedFileSystem.java:1842)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$29.doCall(DistributedFileSystem.java:1835)
+	at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+	at org.apache.hadoop.hdfs.DistributedFileSystem.getFileStatus(DistributedFileSystem.java:1850)
+	at org.apache.spark.sql.execution.streaming.sinks.FileStreamSink$.hasMetadata(FileStreamSink.scala:58)
+	at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:384)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.org$apache$spark$sql$catalyst$analysis$ResolveDataSource$$loadV1BatchSource(ResolveDataSource.scala:143)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$2(ResolveDataSource.scala:61)
+	at scala.Option.getOrElse(Option.scala:201)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:61)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:248)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:245)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:237)
+	at scala.collection.immutable.List.foreach(List.scala:323)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:237)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:343)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:339)
+	at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:224)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:339)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:289)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:207)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:207)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:236)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:91)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:122)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:84)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:322)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:322)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:139)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:139)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:150)
+	at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:90)
+	at org.apache.spark.sql.classic.Dataset$.$anonfun$ofRows$1(Dataset.scala:114)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.classic.Dataset$.ofRows(Dataset.scala:112)
+	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:108)
+	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:57)
+	at org.apache.spark.sql.DataFrameReader.csv(DataFrameReader.scala:392)
+	at org.apache.spark.sql.classic.DataFrameReader.csv(DataFrameReader.scala:258)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+26/04/19 14:26:21 WARN FileStreamSink: Assume no metadata directory. Error while looking for metadata directory in the path: hdfs://localhost:9000/project/cinema/raw/tmdb/tmdb_5000_movies.csv.
+java.io.FileNotFoundException: File does not exist: hdfs://localhost:9000/project/cinema/raw/tmdb/tmdb_5000_movies.csv
+	at org.apache.hadoop.hdfs.DistributedFileSystem$29.doCall(DistributedFileSystem.java:1842)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$29.doCall(DistributedFileSystem.java:1835)
+	at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+	at org.apache.hadoop.hdfs.DistributedFileSystem.getFileStatus(DistributedFileSystem.java:1850)
+	at org.apache.spark.sql.execution.streaming.sinks.FileStreamSink$.hasMetadata(FileStreamSink.scala:58)
+	at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:384)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.org$apache$spark$sql$catalyst$analysis$ResolveDataSource$$loadV1BatchSource(ResolveDataSource.scala:143)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$2(ResolveDataSource.scala:61)
+	at scala.Option.getOrElse(Option.scala:201)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:61)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:248)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:245)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:237)
+	at scala.collection.immutable.List.foreach(List.scala:323)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:237)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:343)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:339)
+	at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:224)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:339)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:289)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:207)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:207)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:236)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:91)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:122)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:84)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:322)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:322)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:139)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:139)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:150)
+	at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:90)
+	at org.apache.spark.sql.classic.Dataset$.$anonfun$ofRows$1(Dataset.scala:114)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.classic.Dataset$.ofRows(Dataset.scala:112)
+	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:108)
+	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:57)
+	at org.apache.spark.sql.DataFrameReader.csv(DataFrameReader.scala:392)
+	at org.apache.spark.sql.classic.DataFrameReader.csv(DataFrameReader.scala:258)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Loading TMDB Revenue data ...
+26/04/19 14:26:21 WARN FileStreamSink: Assume no metadata directory. Error while looking for metadata directory in the path: hdfs://localhost:9000/project/cinema/raw/tmdb/tmdb_revenue.csv.
+java.io.FileNotFoundException: File does not exist: hdfs://localhost:9000/project/cinema/raw/tmdb/tmdb_revenue.csv
+	at org.apache.hadoop.hdfs.DistributedFileSystem$29.doCall(DistributedFileSystem.java:1842)
+	at org.apache.hadoop.hdfs.DistributedFileSystem$29.doCall(DistributedFileSystem.java:1835)
+	at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+	at org.apache.hadoop.hdfs.DistributedFileSystem.getFileStatus(DistributedFileSystem.java:1850)
+	at org.apache.spark.sql.execution.streaming.sinks.FileStreamSink$.hasMetadata(FileStreamSink.scala:58)
+	at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:384)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.org$apache$spark$sql$catalyst$analysis$ResolveDataSource$$loadV1BatchSource(ResolveDataSource.scala:143)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.$anonfun$applyOrElse$2(ResolveDataSource.scala:61)
+	at scala.Option.getOrElse(Option.scala:201)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:61)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource$$anonfun$apply$1.applyOrElse(ResolveDataSource.scala:45)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$3(AnalysisHelper.scala:139)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUpWithPruning$1(AnalysisHelper.scala:139)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:416)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning(AnalysisHelper.scala:135)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUpWithPruning$(AnalysisHelper.scala:131)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUpWithPruning(LogicalPlan.scala:37)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:112)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:111)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:37)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:45)
+	at org.apache.spark.sql.catalyst.analysis.ResolveDataSource.apply(ResolveDataSource.scala:43)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:248)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:245)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:237)
+	at scala.collection.immutable.List.foreach(List.scala:323)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:237)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:343)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$execute$1(Analyzer.scala:339)
+	at org.apache.spark.sql.catalyst.analysis.AnalysisContext$.withNewAnalysisContext(Analyzer.scala:224)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:339)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:289)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:207)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:89)
+	at org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:207)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.resolveInFixedPoint(HybridAnalyzer.scala:236)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.$anonfun$apply$1(HybridAnalyzer.scala:91)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.withTrackedAnalyzerBridgeState(HybridAnalyzer.scala:122)
+	at org.apache.spark.sql.catalyst.analysis.resolver.HybridAnalyzer.apply(HybridAnalyzer.scala:84)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:322)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:423)
+	at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:322)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$2(QueryExecution.scala:139)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyAnalyzed$1(QueryExecution.scala:139)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:150)
+	at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:90)
+	at org.apache.spark.sql.classic.Dataset$.$anonfun$ofRows$1(Dataset.scala:114)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.classic.Dataset$.ofRows(Dataset.scala:112)
+	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:108)
+	at org.apache.spark.sql.classic.DataFrameReader.load(DataFrameReader.scala:57)
+	at org.apache.spark.sql.DataFrameReader.csv(DataFrameReader.scala:392)
+	at org.apache.spark.sql.classic.DataFrameReader.csv(DataFrameReader.scala:258)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Cleaning data ...
+Removing outliers ...
+Merging MovieLens and TMDB ...
+Pushing cleaned data to MongoDB ...
+=====================================================
+      Data Preprocessing Pipeline Completed!
+=====================================================

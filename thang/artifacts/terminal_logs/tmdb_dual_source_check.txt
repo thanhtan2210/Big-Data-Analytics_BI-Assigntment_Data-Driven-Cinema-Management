@@ -1,0 +1,15 @@
+============================================================
+TMDB DUAL-SOURCE VERIFICATION
+============================================================
+nam   : /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/nam/data/raw/tmdb
+thanh : /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thanh/data/raw/tmdb
+
+[SAME] credits.csv | lines: nam=45477, thanh=45477 | sha256=b968359c8e77aebcb7329608378b3b11cc1834726e157aae934bc89f291458ec
+[SAME] keywords.csv | lines: nam=46420, thanh=46420 | sha256=428ef94a80255986ad71fd347855702e772ee776841f1e8923a618aa2d87a668
+[SAME] links.csv | lines: nam=45844, thanh=45844 | sha256=bd8562d4b10d04d080e16caaf8027cd07e47b5da6920128d39e31cd1dd8ffc5e
+[SAME] links_small.csv | lines: nam=9126, thanh=9126 | sha256=772cb400f68f03cc61b112a544601d25571b168788dab7dc96f462d93059c49f
+[SAME] movies_metadata.csv | lines: nam=45572, thanh=45572 | sha256=37ec322786b136a24604564e55160be75f8937546f11cb1a990076971fa895fd
+[SAME] ratings.csv | lines: nam=26024290, thanh=26024290 | sha256=5c6e8af7e8f71247208cf3fce4a7d52e61e6926b296c88e03e1cb60edb41b2f5
+[SAME] ratings_small.csv | lines: nam=100005, thanh=100005 | sha256=821795331fd974bbe7a8416f2a7eec2b548a485dedb47a073580b0a9a8a0a8d2
+
+[PASS] Both TMDB folders are identical. Using one means using both datasets.

@@ -1,0 +1,7 @@
+2026-04-19 14:25:29,477 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+415.0 M  415.0 M  /project/cinema/raw/movielens/genome-scores.csv
+17.7 K   17.7 K   /project/cinema/raw/movielens/genome-tags.csv
+1.3 M    1.3 M    /project/cinema/raw/movielens/links.csv
+2.9 M    2.9 M    /project/cinema/raw/movielens/movies.csv
+646.8 M  646.8 M  /project/cinema/raw/movielens/ratings.csv
+37.0 M   37.0 M   /project/cinema/raw/movielens/tags.csv
