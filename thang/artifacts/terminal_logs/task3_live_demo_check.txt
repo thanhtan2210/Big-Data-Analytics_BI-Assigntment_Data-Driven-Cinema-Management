@@ -1,0 +1,36 @@
+{
+  counts: {
+    movies_enriched: 62423,
+    genre_stats: 27,
+    decade_stats: 264,
+    year_stats: 24,
+    rating_dist: 10,
+    user_segments: 10920,
+    segment_genre_preference: 25,
+    tag_stats: 65402,
+    segment_recommendations: 10
+  },
+  sample_movie: {
+    movieId: 1,
+    title: 'Toy Story',
+    genres: 'Animation|Comedy|Family',
+    genres_array: [
+      'Animation',
+      'Comedy',
+      'Family'
+    ],
+    revenue: 373554033,
+    budget: 30000000,
+    roi: 11.4518011
+  },
+  sample_genre: {
+    genre: 'Documentary',
+    avg_rating: 3.680722891566265,
+    rating_count: 166,
+    movie_count: 5558,
+    total_revenue: 988086261.1751901,
+    avg_revenue: 177681.39924027876,
+    avg_budget: 83510.50962057184,
+    avg_roi: 1.0793655520767187
+  }
+}

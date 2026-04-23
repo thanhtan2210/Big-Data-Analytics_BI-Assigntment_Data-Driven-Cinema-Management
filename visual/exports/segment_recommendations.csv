@@ -1,0 +1,11 @@
+segment,movieId,avg_predicted_rating,recommended_to_users,rank,title_clean,genres_array,avg_rating
+Heavy,8228,5.0,10920,1,The Maltese Falcon,Crime|Mystery,5.0
+Heavy,1834,5.0,10920,2,The Spanish Prisoner,Crime|Drama|Mystery|Thriller,5.0
+Heavy,1023,5.0,10920,3,Winnie the Pooh and the Blustery Day,Animation|Family|Music,5.0
+Heavy,1296,5.0,10920,4,A Room with a View,Drama|Romance,5.0
+Heavy,631,5.0,10920,5,All Dogs Go to Heaven 2,Romance|Animation|Family|Adventure|Fantasy,5.0
+Heavy,189713,5.0,10920,6,BlacKkKlansman,Comedy|Crime|Drama,5.0
+Heavy,3168,5.0,10920,7,Easy Rider,Adventure|Drama,5.0
+Heavy,30749,5.0,10920,8,Hotel Rwanda,Drama|History|War,5.0
+Heavy,65261,5.0,10920,9,Ponyo,Animation|Family,5.0
+Heavy,3178,5.0,10920,10,Released,Drama,5.0
