@@ -13,21 +13,13 @@
 
 ## Cài đặt
 
-### Cách 1 — Dùng venv riêng trong thư mục này
-
-```powershell
-cd streamlit_app
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### Cách 2 — Dùng venv của fetch_data (đã có sẵn)
+Dùng venv chung ở root project (một venv cho toàn bộ dự án):
 
 ```powershell
 # từ root project
-.\fetch_data\.venv\Scripts\activate
-pip install -r streamlit_app\requirements.txt
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
 ---
@@ -35,14 +27,9 @@ pip install -r streamlit_app\requirements.txt
 ## Chạy ứng dụng
 
 ```powershell
-# từ thư mục streamlit_app/
-streamlit run app.py
-```
-
-hoặc từ root project:
-
-```powershell
-streamlit run streamlit_app/app.py
+# từ root project (activate venv trước)
+.\.venv\Scripts\activate
+.\.venv\Scripts\streamlit.exe run visual/streamlit_app/app.py
 ```
 
 Mặc định mở tại **http://localhost:8501**

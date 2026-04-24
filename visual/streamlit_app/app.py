@@ -26,14 +26,18 @@ from data import (
     get_segment_genre_preference,
     get_tag_stats,
     get_segment_recommendations,
+    get_user_segments_raw,
+    get_kpis,
 )
+
+_kpis = get_kpis()
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Cinema BI Dashboard",
     page_icon="🎬",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # ── Global style ──────────────────────────────────────────────────────────────
@@ -109,26 +113,26 @@ with st.sidebar:
     st.markdown("## 🎬 Cinema BI")
     st.markdown("*Data-Driven Cinema Management*")
     st.divider()
-
-    page = st.radio(
-        "nav",
-        ["📊 Revenue & Genre", "👥 Audience Engagement", "🎯 Customer Segmentation"],
-    )
-
-    st.divider()
     st.markdown("**Dataset**")
     st.caption("MovieLens 25M + TMDB")
-    st.caption("162,541 users")
-    st.caption("62,423 films")
-    st.caption("25,000,095 ratings")
+    st.caption(f"{_kpis['total_users']:,} users")
+    st.caption(f"{_kpis['total_films']:,} films")
+    st.caption(f"{_kpis['total_ratings']:,} ratings")
     st.divider()
-    st.info("⚠️ Mock data — prototype only", icon="ℹ️")
+    st.success("Real pipeline data loaded", icon="✅")
 
+
+# ── Dashboard tabs (top-level navigation) ────────────────────────────────────
+_tab1, _tab2, _tab3 = st.tabs([
+    "📊 Revenue & Genre",
+    "👥 Audience Engagement",
+    "🎯 Customer Segmentation",
+])
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Dashboard 1 — Revenue & Genre Intelligence
 # ══════════════════════════════════════════════════════════════════════════════
-if "Revenue" in page:
+with _tab1:
     st.markdown('<div class="dash-title">Dashboard 1 — Revenue &amp; Genre Intelligence</div>',
                 unsafe_allow_html=True)
     st.caption("Genre nào mang lại doanh thu cao nhất? Hỗ trợ quyết định lịch chiếu cuối tuần / ngày lễ.")
@@ -140,55 +144,79 @@ if "Revenue" in page:
 
     # ── KPIs ──────────────────────────────────────────────────────────────────
     c1, c2, c3, c4 = st.columns(4)
-    with c1: kpi("Total Industry Revenue", "$549 B", "TMDB-sourced films")
-    with c2: kpi("Avg Genre ROI", "2.08×")
-    with c3: kpi("Profitable Films", "8,240", "revenue > budget")
-    with c4: kpi("Highest-Revenue Genre", "Action", "$84.2 B cumulative")
+    with c1: kpi("Total Industry Revenue", f"${_kpis['total_revenue_b']:,.0f} B", "TMDB-sourced films")
+    with c2: kpi("Avg Genre ROI", f"{_kpis['avg_roi']:.2f}×")
+    with c3: kpi("Profitable Films", f"{_kpis['profitable_films']:,}", "revenue > budget")
+    with c4: kpi("Highest-Revenue Genre", _kpis['top_genre_rev'], f"${_kpis['top_genre_rev_b']:,.0f} B cumulative")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Row 1: Bar + Bubble ───────────────────────────────────────────────────
-    col1, col2 = st.columns(2)
+    # ── Row 1a: Revenue Bar (full width) ─────────────────────────────────────
+    st.markdown("##### 1.1 — Total Revenue by Genre")
+    revenue_bar_df = gdf.sort_values("total_revenue").copy()
+    fig = px.bar(
+        revenue_bar_df,
+        x="total_revenue", y="genre",
+        orientation="h",
+        color="total_revenue",
+        color_continuous_scale="Reds",
+        text=revenue_bar_df["total_revenue"]
+            .apply(lambda v: f"${v/1_000:.1f}B"),
+        hover_data={"movie_count": ":,.0f", "avg_roi": ":.2f", "total_revenue": ":,.0f"},
+        labels={"total_revenue": "Revenue ($M)", "genre": ""},
+        template=THEME,
+    )
+    fig.update_traces(textposition="outside", textfont_size=10)
+    fig.update_layout(**CHART_LAYOUT, coloraxis_showscale=False, height=420)
+    st.plotly_chart(fig, use_container_width=True)
 
-    with col1:
-        st.markdown("##### 1.1 — Total Revenue by Genre")
-        fig = px.bar(
-            gdf.sort_values("total_revenue"),
-            x="total_revenue", y="genre",
-            orientation="h",
-            color="total_revenue",
-            color_continuous_scale="Reds",
-            text=gdf.sort_values("total_revenue")["total_revenue"]
-                .apply(lambda v: f"${v/1_000:.1f}B"),
-            labels={"total_revenue": "Revenue ($M)", "genre": ""},
-            template=THEME,
-        )
-        fig.update_traces(textposition="outside", textfont_size=10)
-        fig.update_layout(**CHART_LAYOUT, coloraxis_showscale=False, height=500)
-        st.plotly_chart(fig, use_container_width=True)
-
-    with col2:
-        st.markdown("##### 1.2 — Budget vs Revenue Bubble (size = popularity)")
-        fig = px.scatter(
-            gdf,
-            x="avg_budget", y="avg_revenue",
-            size="rating_count",
-            color="genre",
-            hover_name="genre",
-            hover_data={"avg_roi": ":.2f", "avg_budget": ":,.0f", "avg_revenue": ":,.0f"},
-            labels={"avg_budget": "Avg Budget ($M)", "avg_revenue": "Avg Revenue ($M)"},
-            template=THEME,
-            size_max=55,
-        )
-        # break-even line (revenue = budget)
-        axis_max = max(gdf["avg_revenue"].max(), gdf["avg_budget"].max()) * 1.15
-        fig.add_shape(type="line", x0=0, y0=0, x1=axis_max, y1=axis_max,
-                      line=dict(color="rgba(255,255,255,0.25)", dash="dash", width=1.5))
-        fig.add_annotation(x=axis_max * 0.85, y=axis_max * 0.82,
-                           text="Break-even", font=dict(color="rgba(255,255,255,0.4)", size=10),
-                           showarrow=False)
-        fig.update_layout(**CHART_LAYOUT, height=500)
-        st.plotly_chart(fig, use_container_width=True)
+    # ── Row 1b: Budget vs Revenue Bubble (full width) ─────────────────────────
+    st.markdown("##### 1.2 — Budget vs Revenue Bubble (size = popularity)")
+    scatter_gdf = gdf[
+        (gdf["avg_budget"] > 0) & (gdf["avg_revenue"] > 0) & (gdf["genre"] != "[]")
+    ].copy()
+    # Normalize rating_count for better bubble sizing
+    rating_min, rating_max = scatter_gdf["rating_count"].min(), scatter_gdf["rating_count"].max()
+    scatter_gdf["bubble_size"] = 10 + 50 * (scatter_gdf["rating_count"] - rating_min) / (rating_max - rating_min) if rating_max > rating_min else 30
+    fig = px.scatter(
+        scatter_gdf,
+        x="avg_budget", y="avg_revenue",
+        size="bubble_size",
+        color="genre",
+        hover_name="genre",
+        text="genre",
+        hover_data={
+            "avg_roi": ":.2f",
+            "avg_budget": ":,.0f",
+            "avg_revenue": ":,.0f",
+            "rating_count": ":,.0f",
+            "movie_count": ":,.0f",
+            "bubble_size": False,
+        },
+        labels={"avg_budget": "Avg Budget ($M)", "avg_revenue": "Avg Revenue ($M)"},
+        template=THEME,
+        size_max=55,
+        log_x=True,
+        log_y=True,
+    )
+    fig.update_traces(textposition="top center", textfont_size=9)
+    # Explicit log-axis range padding to spread bubbles
+    _x_min = np.log10(scatter_gdf["avg_budget"].min()) - 0.4
+    _x_max = np.log10(scatter_gdf["avg_budget"].max()) + 0.4
+    _y_min = np.log10(scatter_gdf["avg_revenue"].min()) - 0.4
+    _y_max = np.log10(scatter_gdf["avg_revenue"].max()) + 0.4
+    fig.update_xaxes(range=[_x_min, _x_max])
+    fig.update_yaxes(range=[_y_min, _y_max])
+    # break-even line: use actual data range (x0=0 is invisible on log scale)
+    x_lo = scatter_gdf["avg_budget"].min() * 0.8
+    x_hi = scatter_gdf["avg_budget"].max() * 1.5
+    fig.add_shape(type="line", x0=x_lo, y0=x_lo, x1=x_hi, y1=x_hi,
+                  line=dict(color="rgba(255,255,255,0.25)", dash="dash", width=1.5))
+    fig.add_annotation(x=x_hi * 0.7, y=x_hi * 0.55,
+                       text="Break-even", font=dict(color="rgba(255,255,255,0.4)", size=10),
+                       showarrow=False)
+    fig.update_layout(**CHART_LAYOUT, height=580)
+    st.plotly_chart(fig, use_container_width=True)
 
     # ── Row 2: Line + Treemap ─────────────────────────────────────────────────
     col3, col4 = st.columns([1.3, 1])
@@ -196,16 +224,22 @@ if "Revenue" in page:
     with col3:
         st.markdown("##### 1.3 — Avg Revenue by Decade (Top 5 Genres)")
         top5 = gdf.nlargest(5, "total_revenue")["genre"].tolist()
-        fig = px.line(
-            ddf[ddf["genre"].isin(top5)],
-            x="decade", y="avg_revenue", color="genre",
-            markers=True,
-            labels={"avg_revenue": "Avg Revenue ($M)", "decade": "Decade"},
-            template=THEME,
-        )
-        fig.update_traces(line=dict(width=2.5))
-        fig.update_layout(**CHART_LAYOUT, height=380)
-        st.plotly_chart(fig, use_container_width=True)
+        line_df = ddf[(ddf["genre"].isin(top5)) & (ddf["avg_revenue"] > 0)].copy()
+        line_df["decade"] = pd.to_numeric(line_df["decade"], errors="coerce")
+        line_df = line_df.dropna(subset=["decade"]).sort_values("decade")
+        if len(line_df) > 0:
+            fig = px.line(
+                line_df,
+                x="decade", y="avg_revenue", color="genre",
+                markers=True,
+                labels={"avg_revenue": "Avg Revenue ($M)", "decade": "Decade"},
+                template=THEME,
+            )
+            fig.update_traces(line=dict(width=2.5))
+            fig.update_layout(**CHART_LAYOUT, height=380)
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("⏳ Đang chờ dữ liệu từ Task 3 — `decade_genre_heatmap.csv` chưa có `avg_revenue` hợp lệ. Cột này cần được bổ sung bởi pipeline Task 3.")
 
     with col4:
         st.markdown("##### 1.4 — Revenue Share Treemap (color = ROI)")
@@ -216,7 +250,12 @@ if "Revenue" in page:
             color="avg_roi",
             color_continuous_scale=["#8B0000", "#FFD700", "#006400"],
             range_color=[1.2, 2.6],
-            hover_data={"avg_revenue": ":,.0f", "avg_roi": ":.2f"},
+            hover_data={
+                "movie_count": ":,.0f",
+                "avg_revenue": ":,.0f",
+                "avg_budget": ":,.0f",
+                "avg_roi": ":.2f",
+            },
             labels={"total_revenue": "Revenue ($M)", "avg_roi": "Avg ROI"},
             template=THEME,
         )
@@ -229,20 +268,24 @@ if "Revenue" in page:
     disp = mdf.rename(columns={
         "title": "Film", "genres": "Genre", "year": "Year",
         "revenue": "Revenue ($M)", "budget": "Budget ($M)",
-        "roi": "ROI (×)", "avg_rating": "Avg ★", "rating_count": "# Ratings",
+        "roi": "ROI (%)", "avg_rating": "Avg ★", "rating_count": "# Ratings",
     }).copy()
     disp["Revenue ($M)"] = disp["Revenue ($M)"].apply(lambda v: f"${v:,.0f}M")
     disp["Budget ($M)"]  = disp["Budget ($M)"].apply(lambda v: f"${v:,.0f}M")
-    disp["ROI (×)"]      = disp["ROI (×)"].apply(lambda v: f"{v:.2f}×")
+    disp["ROI (%)"]      = disp["ROI (%)"].apply(lambda v: f"{v * 100:.1f}%")
     disp["Avg ★"]        = disp["Avg ★"].apply(lambda v: f"{v:.2f}")
     disp["# Ratings"]    = disp["# Ratings"].apply(lambda v: f"{v/1_000:.1f}K")
+    # Drop Year column if all values are 'N/A' (missing data in source)
+    if disp["Year"].nunique() == 1 and disp["Year"].iloc[0] == "N/A":
+        st.caption("⚠️ *Year data not available in source (movies_enriched.csv missing year for top revenue films).*")
+        disp = disp.drop(columns=["Year"])
     st.dataframe(disp, use_container_width=True, hide_index=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Dashboard 2 — Audience Engagement & Rating Trends
 # ══════════════════════════════════════════════════════════════════════════════
-elif "Audience" in page:
+with _tab2:
     st.markdown('<div class="dash-title">Dashboard 2 — Audience Engagement &amp; Rating Trends</div>',
                 unsafe_allow_html=True)
     st.caption("Xu hướng đánh giá và sức hút theo thể loại — hỗ trợ điều chỉnh danh mục phim.")
@@ -255,10 +298,11 @@ elif "Audience" in page:
 
     # ── KPIs ──────────────────────────────────────────────────────────────────
     c1, c2, c3, c4 = st.columns(4)
-    with c1: kpi("Total Ratings", "25,000,095")
-    with c2: kpi("System Avg Rating", "3.53 ★")
-    with c3: kpi("Most-Rated Genre", "Drama", "6.2 M ratings")
-    with c4: kpi("Peak Activity Year", "2007", "2.35 M ratings")
+    with c1: kpi("Total Ratings", f"{_kpis['total_ratings']:,}")
+    with c2: kpi("System Avg Rating", f"{_kpis['avg_rating']:.2f} ★")
+    with c3: kpi("Most-Rated Genre", _kpis['top_genre_count'], f"{_kpis['top_genre_count_m']:.1f} M ratings")
+    with c4: kpi("Active Users (Recent 3Y*)", f"{_kpis['recent_active_users_3y_sum']:,}", _kpis['recent_active_year_window'])
+    st.caption("* Sum of yearly distinct active users in the latest 3-year window from `year_stats.csv`.")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -274,8 +318,10 @@ elif "Audience" in page:
             x=gs["avg_rating"], y=gs["genre"],
             orientation="h",
             marker_color=colors,
+            customdata=np.column_stack((gs["rating_count"], gs["avg_rating"] - global_avg)),
             text=gs["avg_rating"].apply(lambda v: f"{v:.2f}"),
             textposition="outside",
+            hovertemplate="<b>%{y}</b><br>Avg rating: %{x:.2f} ★<br># Ratings: %{customdata[0]:,.0f}<br>vs global: %{customdata[1]:+.2f}<extra></extra>",
         ))
         fig.add_vline(
             x=global_avg, line_dash="dash",
@@ -300,7 +346,12 @@ elif "Audience" in page:
             labels={"rating": "Rating", "frequency": "# Ratings"},
             template=THEME,
         )
-        fig.update_traces(textposition="outside", textfont_size=10)
+        fig.update_traces(
+            textposition="outside",
+            textfont_size=10,
+            customdata=np.column_stack((rdf["pct"],)),
+            hovertemplate="Rating: %{x:.1f}<br># Ratings: %{y:,.0f}<br>Share: %{customdata[0]:.1f}%<extra></extra>",
+        )
         fig.update_xaxes(
             tickvals=[0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0],
             ticktext=["0.5", "1.0", "1.5", "2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0"],
@@ -317,11 +368,15 @@ elif "Audience" in page:
         fig.add_trace(go.Bar(
             x=ydf["rating_year"], y=ydf["rating_count"],
             name="# Ratings", marker_color=RED, opacity=0.7,
+            customdata=np.column_stack((ydf["active_users"], ydf["avg_rating"])),
+            hovertemplate="Year: %{x}<br># Ratings: %{y:,.0f}<br>Active users: %{customdata[0]:,.0f}<br>Avg rating: %{customdata[1]:.2f} ★<extra></extra>",
         ), secondary_y=False)
         fig.add_trace(go.Scatter(
             x=ydf["rating_year"], y=ydf["active_users"],
             name="Active Users", mode="lines+markers",
             line=dict(color=GOLD, width=2.5), marker=dict(size=5),
+            customdata=np.column_stack((ydf["rating_count"], ydf["avg_rating"])),
+            hovertemplate="Year: %{x}<br>Active users: %{y:,.0f}<br># Ratings: %{customdata[0]:,.0f}<br>Avg rating: %{customdata[1]:.2f} ★<extra></extra>",
         ), secondary_y=True)
         fig.update_yaxes(title_text="# Ratings", secondary_y=False)
         fig.update_yaxes(title_text="Active Users", secondary_y=True)
@@ -331,27 +386,27 @@ elif "Audience" in page:
 
     with col4:
         st.markdown("##### 2.4 — Heatmap: Genre × Decade (Avg Rating)")
-        genre_subset = ["Action", "Adventure", "Animation", "Comedy", "Drama",
-                        "Horror", "Romance", "Sci-Fi", "Thriller"]
-        pivot = (
-            ddf[ddf["genre"].isin(genre_subset)]
-            .pivot_table(index="genre", columns="decade", values="avg_rating", aggfunc="mean")
-            .round(2)
-        )
-        fig = go.Figure(go.Heatmap(
-            z=pivot.values,
-            x=[str(c) for c in pivot.columns],
-            y=pivot.index.tolist(),
-            colorscale="RdYlGn",
-            zmin=2.5, zmax=4.5,
-            text=pivot.values.round(2),
-            texttemplate="%{text}",
-            textfont=dict(size=10),
-            colorbar=dict(title="★"),
-        ))
-        fig.update_layout(**CHART_LAYOUT, template=THEME,
-                          xaxis_title="Decade", yaxis_title="", height=380)
-        st.plotly_chart(fig, use_container_width=True)
+        heat_df = ddf[ddf["rating_count"] >= 100].copy()
+        if len(heat_df) == 0:
+            st.info("⏳ Đang chờ dữ liệu từ Task 3 — `decade_genre_heatmap.csv` chưa có ô nào đạt rating_count ≥ 100. Cần pipeline chạy trên full data.")
+        else:
+            pivot = heat_df.pivot_table(index="genre", columns="decade", values="avg_rating", aggfunc="mean")
+            pivot_count = heat_df.pivot_table(index="genre", columns="decade", values="rating_count", aggfunc="mean")
+            pivot = pivot.sort_index().round(2)
+            pivot_count = pivot_count.reindex(index=pivot.index, columns=pivot.columns)
+            fig = go.Figure(go.Heatmap(
+                z=pivot.values,
+                x=[str(c) for c in pivot.columns],
+                y=pivot.index.tolist(),
+                colorscale="RdYlGn",
+                zmin=2.5, zmax=4.5,
+                customdata=pivot_count.values,
+                hovertemplate="Genre: %{y}<br>Decade: %{x}<br>Avg rating: %{z:.2f} ★<br># Ratings: %{customdata:,.0f}<extra></extra>",
+                colorbar=dict(title="★"),
+            ))
+            fig.update_layout(**CHART_LAYOUT, template=THEME,
+                              xaxis_title="Decade", yaxis_title="", height=380)
+            st.plotly_chart(fig, use_container_width=True)
 
     # ── Row 3: Popularity vs Quality combo ───────────────────────────────────
     st.markdown("##### 2.5 — Popularity vs Quality per Genre")
@@ -397,7 +452,7 @@ elif "Audience" in page:
 # ══════════════════════════════════════════════════════════════════════════════
 # Dashboard 3 — Customer Segmentation & Recommendations
 # ══════════════════════════════════════════════════════════════════════════════
-else:
+with _tab3:
     st.markdown('<div class="dash-title">Dashboard 3 — Customer Segmentation &amp; ALS Recommendations</div>',
                 unsafe_allow_html=True)
     st.caption("Phân khúc khách hàng & gợi ý phim cá nhân hóa — tối ưu marketing và trải nghiệm.")
@@ -407,14 +462,21 @@ else:
     sgp     = get_segment_genre_preference()
     tag_df  = get_tag_stats()
     rec_df  = get_segment_recommendations()
+    has_multiple_segments = _kpis["segment_count"] > 1
+
+    if not has_multiple_segments:
+        st.warning(
+            "Task 3 export currently contains only the `Heavy` segment. Comparative segment charts remain visible, "
+            "but Medium/Light behavior cannot be analyzed until the pipeline output is regenerated.",
+            icon="⚠️",
+        )
 
     # ── KPIs ──────────────────────────────────────────────────────────────────
-    heavy_pct = 14_820 / 162_541 * 100
     c1, c2, c3, c4 = st.columns(4)
-    with c1: kpi("Total Users", "162,541")
-    with c2: kpi("VIP (Heavy) Users", f"{heavy_pct:.1f}%", "14,820 active users")
-    with c3: kpi("Top User Tag", "atmospheric", "28,420 uses")
-    with c4: kpi("Avg Genre Diversity", "8.3 genres/user")
+    with c1: kpi("Total Users", f"{_kpis['total_users']:,}")
+    with c2: kpi("VIP (Heavy) Users", f"{_kpis['heavy_pct']:.1f}%", f"{_kpis['heavy_count']:,} active users")
+    with c3: kpi("Top User Tag", _kpis['top_tag'], f"{_kpis['top_tag_freq']:,} uses")
+    with c4: kpi("Avg Films Rated/User", f"{_kpis['avg_unique_movies']:.1f}")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -429,12 +491,14 @@ else:
             hole=0.55,
             color="segment",
             color_discrete_map={"Heavy": RED, "Medium": GOLD, "Light": GREY},
+            custom_data=["avg_rating", "avg_movies"],
             template=THEME,
         )
         fig.update_traces(
             textposition="outside",
             textinfo="percent+label",
             textfont_size=13,
+            hovertemplate="Segment: %{label}<br>Users: %{value:,.0f}<br>Share: %{percent}<br>Avg rating: %{customdata[0]:.2f} ★<br>Avg unique films rated: %{customdata[1]:.1f}<extra></extra>",
         )
         fig.update_layout(
             paper_bgcolor=PAPER,
@@ -442,7 +506,7 @@ else:
             margin=dict(l=10, r=10, t=32, b=10),
             showlegend=True,
             annotations=[dict(
-                text="162K<br>users",
+                text=f"{_kpis['total_users'] // 1000}K<br>users",
                 x=0.5, y=0.5,
                 font=dict(size=15, color="white"),
                 showarrow=False,
@@ -461,13 +525,14 @@ else:
         )
 
     with col2:
-        st.markdown("##### 3.2 — Genre Preference by Segment (Top 8 Genres)")
-        sgp8 = sgp[sgp["genre_rank"] <= 8]
+        st.markdown("##### 3.2 — Genre Preference by Segment (Top 10 Genres)")
+        sgp10 = sgp[sgp["genre_rank"] <= 10]
         fig = px.bar(
-            sgp8,
+            sgp10,
             x="genre", y="rating_count", color="segment",
             barmode="group",
             color_discrete_map={"Heavy": RED, "Medium": GOLD, "Light": GREY},
+            hover_data={"avg_rating": ":.2f", "genre_rank": True},
             labels={"rating_count": "# Ratings", "genre": ""},
             template=THEME,
         )
@@ -480,24 +545,33 @@ else:
 
     with col3:
         st.markdown("##### 3.3 — Top 20 User-Applied Tags")
+        tag_plot_df = tag_df.sort_values("frequency").copy()
+        tag_total = tag_df["frequency"].sum()
+        tag_plot_df["pct"] = tag_plot_df["frequency"] / tag_total * 100 if tag_total else 0.0
         fig = px.bar(
-            tag_df.sort_values("frequency"),
+            tag_plot_df,
             x="frequency", y="tag",
             orientation="h",
             color="frequency",
             color_continuous_scale="Oranges",
-            text=tag_df.sort_values("frequency")["frequency"].apply(lambda v: f"{v/1_000:.1f}K"),
+            text=tag_plot_df["frequency"].apply(lambda v: f"{v/1_000:.1f}K"),
             labels={"frequency": "# Uses", "tag": ""},
             template=THEME,
         )
-        fig.update_traces(textposition="outside", textfont_size=9)
+        fig.update_traces(
+            textposition="outside",
+            textfont_size=9,
+            customdata=np.column_stack((tag_plot_df["pct"],)),
+            hovertemplate="Tag: %{y}<br># Uses: %{x:,.0f}<br>Share: %{customdata[0]:.2f}%<extra></extra>",
+        )
         fig.update_layout(**CHART_LAYOUT, coloraxis_showscale=False, height=510)
         st.plotly_chart(fig, use_container_width=True)
 
     with col4:
         st.markdown("##### 3.4 — ALS Recommendations per Segment")
+        _avail_segs = sorted(rec_df["segment"].unique().tolist()) if len(rec_df) > 0 else ["Heavy"]
         seg_sel = st.selectbox(
-            "Segment", ["Heavy", "Medium", "Light"], key="seg_sel",
+            "Segment", _avail_segs, key="seg_sel",
             label_visibility="collapsed",
         )
         seg_label_map = {"Heavy": "VIP (≥200 ratings)", "Medium": "50–199 ratings", "Light": "20–49 ratings"}
@@ -524,38 +598,21 @@ else:
 
     # ── Row 3: User activity scatter ──────────────────────────────────────────
     st.markdown("##### 3.5 — User Activity vs Genre Diversity")
-    st.caption("Synthetic sample (n=2 000). X-axis log-scaled.")
-
-    rng_s = np.random.default_rng(99)
-    heavy_n, med_n, light_n = 200, 700, 1_100
-    scatter_df = pd.DataFrame({
-        "segment": ["Heavy"] * heavy_n + ["Medium"] * med_n + ["Light"] * light_n,
-        "rating_count": np.concatenate([
-            rng_s.integers(200,  1200, heavy_n),
-            rng_s.integers(50,   199,  med_n),
-            rng_s.integers(20,   49,   light_n),
-        ]),
-        "unique_genres": np.concatenate([
-            rng_s.integers(10, 18, heavy_n),
-            rng_s.integers(6,  15, med_n),
-            rng_s.integers(3,  10, light_n),
-        ]),
-        "avg_rating": np.concatenate([
-            np.clip(rng_s.normal(3.85, 0.30, heavy_n), 1, 5),
-            np.clip(rng_s.normal(3.70, 0.35, med_n),   1, 5),
-            np.clip(rng_s.normal(3.60, 0.40, light_n), 1, 5),
-        ]).round(2),
-    })
-    fig = px.scatter(
-        scatter_df,
-        x="rating_count", y="unique_genres",
-        color="segment",
-        color_discrete_map={"Heavy": RED, "Medium": GOLD, "Light": GREY},
-        opacity=0.55,
-        hover_data={"avg_rating": True},
-        labels={"rating_count": "Total Films Rated", "unique_genres": "Unique Genres Explored"},
-        template=THEME,
-        log_x=True,
-    )
-    fig.update_layout(**CHART_LAYOUT, height=380)
-    st.plotly_chart(fig, use_container_width=True)
+    _raw = get_user_segments_raw()
+    if "unique_genres_rated" not in _raw.columns:
+        st.info("⏳ Đang chờ dữ liệu từ Task 3 — `user_segments.csv` chưa có cột `unique_genres_rated`. Cần bổ sung để hiển thị chart này.")
+    else:
+        scatter_df = _raw.sample(n=min(2_000, len(_raw)), random_state=42)
+        fig = px.scatter(
+            scatter_df,
+            x="rating_count", y="unique_genres_rated",
+            color="segment",
+            color_discrete_map={"Heavy": RED, "Medium": GOLD, "Light": GREY},
+            opacity=0.55,
+            hover_data={"userId": True, "avg_rating": ":.2f"},
+            labels={"rating_count": "Total Films Rated", "unique_genres_rated": "Unique Genres Rated"},
+            template=THEME,
+            log_x=True,
+        )
+        fig.update_layout(**CHART_LAYOUT, height=380)
+        st.plotly_chart(fig, use_container_width=True)
