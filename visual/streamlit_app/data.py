@@ -1,4 +1,4 @@
-"""
+﻿"""
 data.py — Mock data generators for Cinema BI Streamlit prototype.
 All functions return a pandas DataFrame matching the schema defined in
 visual/DASHBOARDS.md and visual/CONNECTION_GUIDE.md.
