@@ -1,0 +1,4 @@
+touch data/raw/.gitkeep
+touch runtime/downloads/.gitkeep
+touch artifacts/screenshots/.gitkeep
+touch artifacts/terminal_logs/.gitkeep

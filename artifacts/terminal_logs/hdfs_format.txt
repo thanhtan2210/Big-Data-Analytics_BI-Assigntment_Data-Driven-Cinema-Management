@@ -1,0 +1,1 @@
+namenode is running as process 1538.  Stop it first and ensure /tmp/hadoop-nampham2312186-namenode.pid file is empty before retry.
