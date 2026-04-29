@@ -117,3 +117,4 @@ Sau khi hoàn tất Mục 1, dự án đã có:
 - tài liệu và minh chứng kỹ thuật phục vụ báo cáo
 
 Nền tảng này sẵn sàng cho các bước tiếp theo như tiền xử lý dữ liệu, phân tích và xây dựng mô hình gợi ý.
+basic
