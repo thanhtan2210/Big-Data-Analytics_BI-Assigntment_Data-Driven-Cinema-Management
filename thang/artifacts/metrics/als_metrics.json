@@ -1,0 +1,17 @@
+{
+  "best_validation": {
+    "mode": "fast_mongo_fallback",
+    "top_n": 10,
+    "sample_fraction": 0.0005
+  },
+  "test_rmse": null,
+  "trials": [],
+  "train_count": null,
+  "validation_count": null,
+  "test_count": null,
+  "top_n": 10,
+  "als_sample_fraction": 0.0005,
+  "fast_mode": true,
+  "fast_path": "pymongo",
+  "sample_size": 12500
+}
