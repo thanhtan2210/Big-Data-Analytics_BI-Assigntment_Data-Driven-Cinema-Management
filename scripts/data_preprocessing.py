@@ -121,11 +121,14 @@ def main():
             _col("movieId").cast("integer"),
             _col("tmdbId"),
             _col("title"),
+            _col("release_date"),
             _col("revenue_val").alias("revenue"),
             regexp_replace(_col("vote_average"), "[^0-9.]", "").cast("double").alias("vote_average"),
             regexp_replace(_col("vote_count"), "[^0-9]", "").cast("integer").alias("vote_count"),
             _col("genres")
-        ).dropna(subset=["movieId", "revenue"])
+        ).withColumn("release_date_temp", to_timestamp(_col("release_date"), "yyyy-MM-dd")) \
+         .dropna(subset=["movieId", "revenue", "release_date_temp"]) \
+         .drop("release_date_temp")
 
         revenue_final.write.format("mongodb") \
             .mode("overwrite") \
