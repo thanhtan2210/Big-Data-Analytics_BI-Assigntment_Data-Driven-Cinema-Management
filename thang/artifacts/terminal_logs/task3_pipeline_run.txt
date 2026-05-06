@@ -1,0 +1,160 @@
+[project-env] PROJECT_ROOT=/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thanh
+[project-env] JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+[project-env] HADOOP_HOME=/opt/homebrew/opt/hadoop/libexec
+[project-env] HADOOP_CONF_DIR=/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thanh/config/hadoop
+============================================================
+   TASK 3 PIPELINE: Analytics + Recommendation Modeling
+============================================================
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/04/19 14:49:05 WARN Utils: Your hostname, Rots-Macbook.local, resolves to a loopback address: 127.0.0.1; using 192.168.1.93 instead (on interface en0)
+26/04/19 14:49:05 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/venv/lib/python3.13/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /Users/hosythang/.ivy2.5.2/cache
+The jars for the packages stored in: /Users/hosythang/.ivy2.5.2/jars
+org.mongodb.spark#mongo-spark-connector_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-f2c0a1d4-3240-44d3-8cc7-49e0f4c428fb;1.0
+	confs: [default]
+	found org.mongodb.spark#mongo-spark-connector_2.13;11.0.1 in central
+	found org.mongodb#mongodb-driver-sync;5.1.4 in central
+	[5.1.4] org.mongodb#mongodb-driver-sync;[5.1.1,5.1.99)
+	found org.mongodb#bson;5.1.4 in central
+	found org.mongodb#mongodb-driver-core;5.1.4 in central
+	found org.mongodb#bson-record-codec;5.1.4 in central
+:: resolution report :: resolve 2668ms :: artifacts dl 3ms
+	:: modules in use:
+	org.mongodb#bson;5.1.4 from central in [default]
+	org.mongodb#bson-record-codec;5.1.4 from central in [default]
+	org.mongodb#mongodb-driver-core;5.1.4 from central in [default]
+	org.mongodb#mongodb-driver-sync;5.1.4 from central in [default]
+	org.mongodb.spark#mongo-spark-connector_2.13;11.0.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   5   |   1   |   0   |   0   ||   5   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-f2c0a1d4-3240-44d3-8cc7-49e0f4c428fb
+	confs: [default]
+	0 artifacts copied, 5 already retrieved (0kB/2ms)
+26/04/19 14:49:08 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/04/19 14:49:09 INFO SparkContext: Running Spark version 4.1.1
+26/04/19 14:49:09 INFO SparkContext: OS info Mac OS X, 26.4.1, aarch64
+26/04/19 14:49:09 INFO SparkContext: Java version 17.0.18+0
+26/04/19 14:49:09 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in standalone/kubernetes and LOCAL_DIRS in YARN).
+26/04/19 14:49:09 INFO ResourceUtils: ==============================================================
+26/04/19 14:49:09 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/04/19 14:49:09 INFO ResourceUtils: ==============================================================
+26/04/19 14:49:09 INFO SparkContext: Submitted application: Task3_Analytics_Recommendation_Modeling
+26/04/19 14:49:09 INFO SecurityManager: Changing view acls to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: Changing modify acls to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: Changing view acls groups to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: Changing modify acls groups to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: hosythang groups with view permissions: EMPTY; users with modify permissions: hosythang; groups with modify permissions: EMPTY; RPC SSL disabled
+26/04/19 14:49:09 INFO Utils: Successfully started service 'sparkDriver' on port 61988.
+26/04/19 14:49:09 INFO SparkEnv: Registering MapOutputTracker
+26/04/19 14:49:09 INFO SparkEnv: Registering BlockManagerMaster
+26/04/19 14:49:09 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/04/19 14:49:09 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/04/19 14:49:09 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/04/19 14:49:09 INFO DiskBlockManager: Created local directory at /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3
+26/04/19 14:49:09 INFO SparkEnv: Registering OutputCommitCoordinator
+26/04/19 14:49:09 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/04/19 14:49:09 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/04/19 14:49:09 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar at spark://192.168.1.93:61988/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar at spark://192.168.1.93:61988/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar at spark://192.168.1.93:61988/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar at spark://192.168.1.93:61988/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO SparkContext: Added JAR file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar at spark://192.168.1.93:61988/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar
+26/04/19 14:49:09 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-sync-5.1.4.jar
+26/04/19 14:49:09 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-5.1.4.jar
+26/04/19 14:49:09 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-core-5.1.4.jar
+26/04/19 14:49:09 INFO SparkContext: Added file file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar at file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Copying /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-record-codec-5.1.4.jar
+26/04/19 14:49:09 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/04/19 14:49:09 INFO ResourceProfile: Limiting resource is cpu
+26/04/19 14:49:09 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/04/19 14:49:09 INFO SecurityManager: Changing view acls to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: Changing modify acls to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: Changing view acls groups to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: Changing modify acls groups to: hosythang
+26/04/19 14:49:09 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: hosythang groups with view permissions: EMPTY; users with modify permissions: hosythang; groups with modify permissions: EMPTY; RPC SSL disabled
+26/04/19 14:49:09 INFO Executor: Starting executor ID driver on host 192.168.1.93
+26/04/19 14:49:09 INFO Executor: OS info Mac OS X, 26.4.1, aarch64
+26/04/19 14:49:09 INFO Executor: Java version 17.0.18+0
+26/04/19 14:49:09 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/04/19 14:49:09 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@275aa6e for default.
+26/04/19 14:49:09 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-sync-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar
+26/04/19 14:49:09 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-record-codec-5.1.4.jar has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-record-codec-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_bson-5.1.4.jar has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Fetching file:///Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/.ivy2.5.2/jars/org.mongodb_mongodb-driver-core-5.1.4.jar has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-core-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Fetching spark://192.168.1.93:61988/jars/org.mongodb_mongodb-driver-core-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO TransportClientFactory: Successfully created connection to /192.168.1.93:61988 after 10 ms (0 ms spent in bootstraps)
+26/04/19 14:49:09 INFO Utils: Fetching spark://192.168.1.93:61988/jars/org.mongodb_mongodb-driver-core-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp15137371419556464330.tmp
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp15137371419556464330.tmp has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-core-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Adding file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-core-5.1.4.jar to class loader default
+26/04/19 14:49:09 INFO Executor: Fetching spark://192.168.1.93:61988/jars/org.mongodb_bson-record-codec-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Fetching spark://192.168.1.93:61988/jars/org.mongodb_bson-record-codec-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp1352573176997021094.tmp
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp1352573176997021094.tmp has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-record-codec-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Adding file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-record-codec-5.1.4.jar to class loader default
+26/04/19 14:49:09 INFO Executor: Fetching spark://192.168.1.93:61988/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Fetching spark://192.168.1.93:61988/jars/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp2249627763485286168.tmp
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp2249627763485286168.tmp has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar
+26/04/19 14:49:09 INFO Executor: Adding file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb.spark_mongo-spark-connector_2.13-11.0.1.jar to class loader default
+26/04/19 14:49:09 INFO Executor: Fetching spark://192.168.1.93:61988/jars/org.mongodb_bson-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Fetching spark://192.168.1.93:61988/jars/org.mongodb_bson-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp15161671701912206524.tmp
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp15161671701912206524.tmp has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Adding file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_bson-5.1.4.jar to class loader default
+26/04/19 14:49:09 INFO Executor: Fetching spark://192.168.1.93:61988/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar with timestamp 1776584949201
+26/04/19 14:49:09 INFO Utils: Fetching spark://192.168.1.93:61988/jars/org.mongodb_mongodb-driver-sync-5.1.4.jar to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp15643536593113619968.tmp
+26/04/19 14:49:09 INFO Utils: /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/fetchFileTemp15643536593113619968.tmp has been previously copied to /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-sync-5.1.4.jar
+26/04/19 14:49:09 INFO Executor: Adding file:/Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/spark-b34bab1a-e19b-4098-9217-5d0992ef1ed3/userFiles-7d965bc5-38f7-4fcb-8349-945601b35d95/org.mongodb_mongodb-driver-sync-5.1.4.jar to class loader default
+26/04/19 14:49:09 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 61990.
+26/04/19 14:49:09 INFO NettyBlockTransferService: Server created on 192.168.1.93:61990
+26/04/19 14:49:09 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/04/19 14:49:09 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.93, 61990, None)
+26/04/19 14:49:09 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.93:61990 with 3.4 GiB RAM, BlockManagerId(driver, 192.168.1.93, 61990, None)
+26/04/19 14:49:09 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.93, 61990, None)
+26/04/19 14:49:09 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.93, 61990, None)
+======================================================================
+TASK 3 - ANALYTICS & RECOMMENDATION MODELING
+======================================================================
+26/04/19 14:52:10 WARN InstanceBuilder: Failed to load implementation from:dev.ludovic.netlib.blas.JNIBLAS
+Writing Task 3 collections to MongoDB...
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/09/temp_shuffle_3b389060-30b7-4b29-ad02-7b7b8780be16
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/2b/temp_shuffle_ce30095d-0074-420e-aaf5-41ee8f7b630c
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/1e/temp_shuffle_b8faa682-69de-4684-97fa-e52194519e31
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/30/temp_shuffle_59d682f6-5466-4fbb-adda-0ec5d016c744
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/23/temp_shuffle_86f71212-4153-44c0-9559-66eda92ec8b2
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/2a/temp_shuffle_fdfbeec7-6afa-452d-bd7f-2ba02f818b38
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/28/temp_shuffle_673c7969-8fac-42f1-829e-9c6a17b22566
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/36/temp_shuffle_6b6181b7-9f9e-4af0-8128-acb9f00b4a47
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/21/temp_shuffle_92e704a6-4fd6-4e48-9968-deaf11765281
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/1b/temp_shuffle_58768f32-d353-4357-b0e4-a16d99f67074
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/24/temp_shuffle_d07697ba-334a-4785-8bb9-cef9be779f6b
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/31/temp_shuffle_2b21d41a-5b20-4606-8772-d7dcd6726e33
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/00/temp_shuffle_0c63a390-ad7b-4e3f-b668-385b05b1d213
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/1e/temp_shuffle_18ea66d7-7f18-4c78-9c81-8fd7a5908165
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/38/temp_shuffle_9bfecad7-e734-4a92-9861-e3881237fd26
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/18/temp_shuffle_e7b8bfa1-622f-42ac-9a44-319c74aa469e
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/04/temp_shuffle_9e281576-fe46-4fa3-a99c-f21ed2656a63
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/29/temp_shuffle_1468bc78-abe8-43ef-9abe-082557acd23f
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/05/temp_shuffle_82f4f228-2127-4b1c-b51b-aa52a60ae9cd
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/2c/temp_shuffle_4323d59b-9708-4bd1-ace6-0b0631a4d58e
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/08/temp_shuffle_49df4abb-5612-41cd-ad78-73c1de7b29f4
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/1c/temp_shuffle_14607087-0446-4997-a2e3-87acf0be5e46
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/38/temp_shuffle_19f64852-44ae-4599-a9b9-2960fb5dd5cf
+26/04/19 15:01:18 WARN DiskBlockObjectWriter: Error deleting /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/26/temp_shuffle_302f2c9d-e70d-4015-889f-c104ade8715b
+26/04/19 15:01:18 ERROR Executor: Exception in task 12.0 in stage 166.0 (TID 596): /Users/hosythang/Downloads/BI/Big-Data-Analytics_BI-Assigntment_Data-Driven-Cinema-Management/thang/runtime/spark-local/blockmgr-613ceed0-6bde-4a3d-ad3f-0fd0845a74c3/36/temp_shuffle_6b6181b7-9f9e-4af0-8128-acb9f00b4a47 (No such file or directory)

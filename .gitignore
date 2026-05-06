@@ -1,0 +1,50 @@
+# Python virtual environments
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Hadoop/HDFS runtime data
+runtime/hdfs-store/
+runtime/checkpoints/
+runtime/kafka/
+runtime/kafka-data/
+
+# Data files
+data/
+!data/README.md
+
+# Log files
+*.log
+
+# MongoDB dump/backups
+dump/
+*.bson
+*.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment/config
+.env
+*.env
+
+# VSCode settings
+.vscode/
+
+# Streamlit cache
+.streamlit/
+
+# Kafka logs
+kafka-logs/
+
+
+# Ignore exports and temporary files
+visual/exports/
+*.tmp
+*.bak

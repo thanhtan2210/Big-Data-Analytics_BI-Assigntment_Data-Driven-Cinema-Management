@@ -1,0 +1,8 @@
+2026-04-19 14:25:28,932 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 6 items
+-rw-r--r--   1 hosythang supergroup  435164157 2026-04-19 14:25 /project/cinema/raw/movielens/genome-scores.csv
+-rw-r--r--   1 hosythang supergroup      18103 2026-04-19 14:25 /project/cinema/raw/movielens/genome-tags.csv
+-rw-r--r--   1 hosythang supergroup    1368578 2026-04-19 14:25 /project/cinema/raw/movielens/links.csv
+-rw-r--r--   1 hosythang supergroup    3038099 2026-04-19 14:25 /project/cinema/raw/movielens/movies.csv
+-rw-r--r--   1 hosythang supergroup  678260987 2026-04-19 14:25 /project/cinema/raw/movielens/ratings.csv
+-rw-r--r--   1 hosythang supergroup   38810332 2026-04-19 14:25 /project/cinema/raw/movielens/tags.csv
