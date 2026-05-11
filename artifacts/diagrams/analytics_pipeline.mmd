@@ -1,0 +1,21 @@
+graph LR
+    A[MongoDB cinema_dw] --> B[Spark Analytics]
+    B --> C[9 Collections]
+    B --> D[ALS Model]
+    C --> E[segment_recommendations]
+
+    C --> C1[genre_stats]
+    C --> C2[movies_enriched]
+    C --> C3[decade_genre_heatmap]
+    C --> C4[year_stats]
+    C --> C5[rating_distribution]
+    C --> C6[user_segments]
+    C --> C7[segment_genre_preference]
+    C --> C8[segment_recommendations]
+    C --> C9[tag_stats]
+
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#ffe1f5
+    style D fill:#e1ffe1
+    style E fill:#f5e1ff
