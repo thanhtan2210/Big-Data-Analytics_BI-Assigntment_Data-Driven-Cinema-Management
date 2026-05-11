@@ -1,0 +1,45 @@
+# =============================================================================
+# Project-level gitignore for the Big Data Analytics & BI cinema project.
+# =============================================================================
+
+# --- Local environment ------------------------------------------------------
+.env
+.env.local
+.env.*.local
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+
+# --- Jupyter ----------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- IDE / OS ---------------------------------------------------------------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Data (large raw inputs should not be committed) ------------------------
+data/raw/
+data/processed/
+data/*.zip
+data/*.gz
+
+# --- Hadoop / Spark / Docker runtime ----------------------------------------
+runtime/
+hdfs-store/
+spark-warehouse/
+metastore_db/
+derby.log
+*.log
+
+# --- Docker compose generated artefacts -------------------------------------
+.docker/

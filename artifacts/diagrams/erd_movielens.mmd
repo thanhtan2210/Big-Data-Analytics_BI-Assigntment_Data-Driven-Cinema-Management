@@ -1,0 +1,66 @@
+%% Entity-Relationship Diagram for the MovieLens 25M dataset and its
+%% bridge to the TMDB metadata via tmdbId. Use mermaid.live to export.
+erDiagram
+    MOVIES ||--o{ RATINGS : "rated by users"
+    MOVIES ||--o{ TAGS    : "tagged by users"
+    MOVIES ||--|| LINKS   : "external ids"
+    LINKS  ||--o| TMDB_MOVIES : "tmdbId -> id"
+    TMDB_MOVIES ||--o| TMDB_REVENUE : "title / id"
+    MOVIES ||--o{ GENOME_SCORES : "scored against tags"
+    GENOME_TAGS ||--o{ GENOME_SCORES : "tag definition"
+
+    MOVIES {
+        int    movieId    PK
+        string title
+        string genres
+    }
+
+    RATINGS {
+        int    userId
+        int    movieId   FK
+        float  rating
+        long   timestamp
+    }
+
+    TAGS {
+        int    userId
+        int    movieId   FK
+        string tag
+        long   timestamp
+    }
+
+    LINKS {
+        int    movieId   PK,FK
+        int    imdbId
+        int    tmdbId
+    }
+
+    TMDB_MOVIES {
+        int    id        PK
+        string title
+        string overview
+        long   budget
+        long   revenue
+        string release_date
+        float  vote_average
+        string genres
+    }
+
+    TMDB_REVENUE {
+        int    id        PK,FK
+        string title
+        long   budget
+        long   revenue
+        float  roi
+    }
+
+    GENOME_SCORES {
+        int    movieId  FK
+        int    tagId    FK
+        float  relevance
+    }
+
+    GENOME_TAGS {
+        int    tagId    PK
+        string tag
+    }

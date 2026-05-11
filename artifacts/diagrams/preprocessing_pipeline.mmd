@@ -1,0 +1,27 @@
+%% Data preprocessing pipeline implemented by scripts/data_preprocessing.py.
+%% Shows the PySpark stages from raw HDFS files to the MongoDB warehouse.
+flowchart TD
+    A["HDFS raw zone<br/>/project/cinema/raw/movielens<br/>movies, ratings, tags, links"] --> B["Load CSVs with<br/>SparkSession.read.csv"]
+    A2["HDFS raw zone<br/>/project/cinema/raw/tmdb<br/>tmdb_movies, tmdb_revenue (optional)"] --> B
+
+    B --> C["Drop NA on key columns<br/>(movieId, userId, rating)"]
+    C --> D["Fill missing genres<br/>with 'Unknown'"]
+    D --> E["Cast timestamp<br/>to timestamp_dt"]
+    E --> F["Filter ratings to [0.5 .. 5.0]<br/>(remove out-of-range)"]
+    F --> G["Per-user activity stats<br/>mean + stddev of rating_count"]
+    G --> H["Drop power-user outliers<br/>(rating_count > mean + 3*stddev)"]
+
+    H --> I["Join movies + links<br/>on movieId"]
+    I --> J{"TMDB available?"}
+    J -- "yes" --> K["Join with TMDB<br/>on tmdbId"]
+    J -- "no"  --> L["Keep MovieLens-only<br/>movies_linked"]
+    K --> M["movies_enriched"]
+    L --> M
+
+    H --> N["Aggregate avg rating<br/>+ rating count per movieId"]
+    N --> M
+
+    M --> O["MongoDB cinema_dw.movies"]
+    H --> P["MongoDB cinema_dw.ratings"]
+    A --> Q["MongoDB cinema_dw.tags"]
+    A2 --> R["MongoDB cinema_dw.revenue<br/>(only if tmdb_revenue.csv present)"]
