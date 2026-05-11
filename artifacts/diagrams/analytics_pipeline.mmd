@@ -1,0 +1,64 @@
+%% Analytics / BI pipeline that sits on top of the cleaned warehouse.
+%% Covers the Task 3 ETL/MapReduce layer and the Streamlit serving layer.
+flowchart LR
+    subgraph DW["MongoDB cinema_dw"]
+        M1[("movies")]
+        M2[("ratings")]
+        M3[("tags")]
+        M4[("revenue")]
+    end
+
+    subgraph ETL["Task 3: PySpark ETL + MapReduce"]
+        E1["Genre explode<br/>+ aggregate"]
+        E2["Decade bucketing<br/>(release year / 10)"]
+        E3["User activity tiers<br/>Heavy / Medium / Light"]
+        E4["ROI = revenue / budget"]
+        E5["Strategy quadrants<br/>(Blockbuster, Hidden Gem,<br/>Niche, ...)"]
+        E6["ALS collaborative<br/>filtering per segment"]
+    end
+
+    subgraph SERVE["Serving Layer (visual/exports)"]
+        S1["movies_enriched.csv"]
+        S2["genre_stats.csv"]
+        S3["decade_stats.csv"]
+        S4["user_segments.csv"]
+        S5["als_recommendations.csv"]
+    end
+
+    subgraph UI["Streamlit Dashboard (visual/streamlit_app)"]
+        D1["Overview KPIs"]
+        D2["Genre / Decade trends"]
+        D3["ROI & Strategy quadrants"]
+        D4["User segment insights"]
+        D5["Recommendation explorer"]
+    end
+
+    M1 --> E1
+    M1 --> E2
+    M2 --> E3
+    M1 --> E4
+    M4 --> E4
+    E1 --> E5
+    E4 --> E5
+    M2 --> E6
+    E3 --> E6
+
+    E1 --> S2
+    E2 --> S3
+    E3 --> S4
+    E4 --> S1
+    E5 --> S1
+    E6 --> S5
+
+    S1 --> D1
+    S1 --> D3
+    S2 --> D2
+    S3 --> D2
+    S4 --> D4
+    S5 --> D5
+
+    USER(("Analyst")) -.->|interacts| D1
+    USER -.->|interacts| D2
+    USER -.->|interacts| D3
+    USER -.->|interacts| D4
+    USER -.->|interacts| D5

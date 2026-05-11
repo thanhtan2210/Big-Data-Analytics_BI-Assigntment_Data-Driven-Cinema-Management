@@ -1,0 +1,41 @@
+%% System architecture for the Data-Driven Cinema Management project.
+%% Render with the Mermaid CLI / mermaid.live to produce PNG/SVG for reports.
+flowchart LR
+    subgraph SRC["External Data Sources"]
+        ML["MovieLens 25M<br/>CSV (movies, ratings,<br/>tags, links)"]
+        TMDB["TMDB Dataset<br/>CSV (tmdb_movies,<br/>tmdb_revenue)"]
+    end
+
+    subgraph STORAGE["Storage Layer (Hadoop HDFS)"]
+        NN["NameNode<br/>:9870 / :9000"]
+        DN["DataNode<br/>:9864"]
+        RAW[("/project/cinema/raw/<br/>movielens, tmdb")]
+    end
+
+    subgraph COMPUTE["Compute Layer (Apache Spark)"]
+        SPK["Spark master<br/>:8080 / :7077"]
+        JOB["data_preprocessing.py<br/>(PySpark + mongo-spark-connector)"]
+    end
+
+    subgraph WAREHOUSE["Data Warehouse (MongoDB)"]
+        MGO["MongoDB :27017<br/>db: cinema_dw"]
+        COL["Collections:<br/>movies, ratings,<br/>tags, revenue"]
+    end
+
+    subgraph BI["BI / Serving Layer"]
+        EXP["visual/exports/*.csv<br/>(pre-aggregated)"]
+        APP["Streamlit Dashboard<br/>visual/streamlit_app"]
+        USER(("Analyst / User"))
+    end
+
+    ML --> RAW
+    TMDB --> RAW
+    RAW --> NN
+    NN --- DN
+    NN --> JOB
+    SPK --> JOB
+    JOB --> MGO
+    MGO --> COL
+    COL --> EXP
+    EXP --> APP
+    APP --> USER
