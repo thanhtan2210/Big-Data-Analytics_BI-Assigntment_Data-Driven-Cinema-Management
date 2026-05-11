@@ -1,0 +1,15 @@
+graph LR
+    A[MovieLens Raw Data] --> B[HDFS]
+    C[TMDB Raw Data] --> B
+    B --> D[PySpark Preprocessing]
+    D --> E[MongoDB cinema_dw]
+    E --> F[Streamlit Dashboard]
+    E --> G[Power BI]
+
+    style A fill:#e1f5ff
+    style C fill:#e1f5ff
+    style B fill:#fff4e1
+    style D fill:#ffe1f5
+    style E fill:#e1ffe1
+    style F fill:#f5e1ff
+    style G fill:#f5e1ff

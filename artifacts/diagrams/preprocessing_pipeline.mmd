@@ -1,0 +1,22 @@
+graph TD
+    A[Load from HDFS] --> B[Clean Missing Values]
+    B --> C[Filter Outliers]
+    C --> D[Merge Data]
+    D --> E[Write to MongoDB]
+
+    B --> B1[Drop null movieId/title]
+    B --> B2[Fill genres with Unknown]
+    B --> B3[Drop null ratings]
+
+    C --> C1[Filter rating 0.5-5.0]
+    C --> C2[Remove bot users]
+
+    D --> D1[Join movies + links]
+    D --> D2[Join with TMDB]
+    D --> D3[Aggregate ratings]
+
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#ffe1f5
+    style D fill:#e1ffe1
+    style E fill:#f5e1ff

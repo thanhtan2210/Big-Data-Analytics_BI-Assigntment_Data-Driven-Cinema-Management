@@ -1,0 +1,32 @@
+erDiagram
+    USERS ||--o{ RATINGS : rates
+    MOVIES ||--o{ RATINGS : has
+    MOVIES ||--o{ TAGS : has
+    USERS ||--o{ TAGS : tags
+    MOVIES ||--|| LINKS : has
+
+    USERS {
+        int userId PK
+    }
+    MOVIES {
+        int movieId PK
+        string title
+        string genres
+    }
+    RATINGS {
+        int userId FK
+        int movieId FK
+        float rating
+        long timestamp
+    }
+    TAGS {
+        int userId FK
+        int movieId FK
+        string tag
+        long timestamp
+    }
+    LINKS {
+        int movieId PK
+        int imdbId
+        int tmdbId
+    }
